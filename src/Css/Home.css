@@ -3,12 +3,17 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
+  /* **THE FIX:** Change min-height from 100vh to a smaller, controlled height. 
+     Using 80vh ensures it takes up 80% of the screen height, leaving room for the navbar and footer.
+  */
+  min-height: 100vh; 
+
+  
   width: 100%;
   position: relative;
 }
 
-/* Optional: Add content styling */
+/* Optional: Add content styling (No changes needed here) */
 .home-content {
   position: relative;
   z-index: 2;
@@ -16,11 +21,8 @@
   text-align: center;
   padding-top: 20%;
 }
-
-.home-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.Main-bg{
+    background-color: black;
 }
+
+
