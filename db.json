@@ -3,92 +3,166 @@
     {
       "id": 1,
       "name": "Premium Boulevard Mercedes Benz CLK 63 AMG Black Series",
-      "price": 2999,
+      "price": 599,
+      "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/71eMXisQ-GL._SL1000.jpg?v=1756469422"
     },
     {
       "id": 2,
       "name": "Scale Sports Car with Full Metal Body Construction & Real Riders Tires for Collectors",
-      "price": 4999,
+      "price": 799,
+      "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
     },
     {
       "id": 3,
       "name": "Chrome 2025 Shelby Cobra 427 S/C Diecast Car",
-      "price": 1999,
+      "price": 449,
+      "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM29_533x.jpg?v=1748434712"
     },
     {
       "id": 4,
       "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
-      "price": 1299,
+      "price": 399,
+      "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/61QkH3jYqpL._SL1000_940x.jpg?v=1748434865"
     },
     {
       "id": 5,
       "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
-      "price": 34999,
+      "price": 399,
+      "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM28_533x.jpg?v=1748434707"
     },
     {
       "id": 6,
       "name": "Sports Car with Full Metal Body Construction & Real Riders Tires for Collectors",
-      "price": 899,
+      "price": 699,
+      "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/81Z3IJ9yMFL._SL1500_1270x.jpg?v=1757507078"
     },
     {
       "id": 7,
       "name": "Scale Mazda RX 7 Die-Cast Vehicles For Ages 3+",
-      "price": 899,
+      "price": 199,
+      "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM27_1920x.jpg?v=1748434701"
     },
     {
       "id": 8,
       "name": "Hot Wheels Street Power Ferenzo Large Scale Motorcycles",
-      "price": 899,
+      "price": 299,
+      "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_ferenzo-1_785x.jpg?v=1675922729"
     },
     {
       "id": 9,
       "name": "Hot Wheels Street Power Fat Ride Large Scale Motorcycles",
-      "price": 899,
+      "price": 299,
+      "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_fat_ride-1_785x.jpg?v=1675922729"
     },
     {
       "id": 10,
       "name": "Hot Wheels Street Power Xblade Large-Scale Motorcycles (Blue)",
-      "price": 899,
+      "price": 299,
+      "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/51SLUBW5EvL_785x.jpg?v=1757507100"
     },
     {
       "id": 11,
       "name": "Hot Wheels Street Power Turbo Bike",
-      "price": 899,
+      "price": 299,
+      "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_turbo_bike-1_785x.jpg?v=1675922739"
     },
     {
       "id": 12,
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD73)",
-      "price": 899,
+      "price": 499,
+      "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61XwvAU6LhL_785x.jpg?v=1757507094"
     },
     {
       "id": 13,
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD91)",
-      "price": 899,
+      "price": 499,
+      "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61FRoKzySDL_670x.jpg?v=1757507066"
     },
     {
       "id": 14,
       "name": "Demolition Doubles 2 Pack Collection, DC Batman Vs Batman Classic TV Series",
-      "price": 899,
+      "price": 349,
+      "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61ONc6mQZQL._SL1000.jpg?v=1757071557"
     },
     {
       "id": 15,
       "name": "Hot Wheels Monster Trucks 1:64 Scale Demolition Doubles 2 Pack Collection, Tiger Shark Vs 5 Alarm",
-      "price": 899,
+      "price": 349,
+      "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61iUtxMTOJL._SL1000.jpg?v=1757071569"
+    }
+  ],
+  "users": [
+    {
+      "id": "3449",
+      "name": "ashfak",
+      "email": "ashfakkp@gmail.com",
+      "password": "8893390415",
+      "address": ""
+    },
+    {
+      "id": "e6fa",
+      "name": "vaishakh",
+      "email": "vaishakh@gmail.com",
+      "password": "1234",
+      "address": ""
+    },
+    {
+      "id": "39e0",
+      "name": "anshifa",
+      "email": "anshifa@gmail.com",
+      "password": "anshifa@123"
+    },
+    {
+      "id": "6d78",
+      "name": "safwan",
+      "email": "safwan@gmai.com",
+      "password": "Ashi@123"
+    },
+    {
+      "id": "ee0f",
+      "name": "irfan",
+      "email": "irfan@gmal.com",
+      "password": "Ashi@123"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "productIds": [
+        1,
+        3,
+        7
+      ],
+      "total": 1247,
+      "status": "delivered",
+      "date": "2025-10-31"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "productIds": [
+        5,
+        9
+      ],
+      "total": 698,
+      "status": "pending",
+      "date": "2025-11-01"
     }
   ]
 }

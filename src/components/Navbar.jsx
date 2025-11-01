@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom"; 
 
 // ======================
 // ICON COMPONENTS (Kept the essential ones)
@@ -71,6 +71,21 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  // navigation helper for logout
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear common auth keys (token/user) from localStorage
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    } catch (e) {
+      // ignore localStorage errors
+    }
+    // navigate to login page
+    navigate('/login');
+  };
+
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,8 +93,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
 
           {/* 1. Logo */}
-          <Link to="/" className="text-xl font-extrabold text-indigo-700 hover:text-indigo-900 transition duration-300">
-            Fly Wheels
+          <Link to="/" className="text-xl font-extrabold text-orange-700 hover:text-indigo-900 transition duration-300">
+            Fly Wheels  
           </Link>
 
           {/* 2. Desktop Navigation Links (Hardcoded, no .map()) */}
@@ -87,14 +102,14 @@ const Navbar = () => {
             <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
               Home
             </Link>
-            <Link to="/electronics" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
+            <Link to="/Products" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
               Products
             </Link>
-            <Link to="/fashion" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
-              Cars
+            <Link to="/About" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
+              About
             </Link>
-            <Link to="/home-garden" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
-              Others
+            <Link to="/Others" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
+              Contact
             </Link>
           </div>
 
@@ -128,6 +143,15 @@ const Navbar = () => {
                 <CartIcon count={5} />
             </Link>
 
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="ml-2 px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition duration-200"
+              title="Logout"
+            >
+              Logout
+            </button>
+
           </div>
 
           {/* 4. Mobile Button & Cart */}
@@ -159,14 +183,14 @@ const Navbar = () => {
             <Link to="/" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
               Home
             </Link>
-            <Link to="/electronics" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              Electronics
+            <Link to="/Products" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
+              Products
             </Link>
-            <Link to="/fashion" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              Fashion
+            <Link to="/Cars" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
+              About
             </Link>
-            <Link to="/home-garden" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              Home & Garden
+            <Link to="/Others" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
+              Contact
             </Link>
             
             {/* Icon Links (Full Text) */}
@@ -180,6 +204,14 @@ const Navbar = () => {
                 <Link to="/cart" onClick={closeMobileMenu} className="flex items-center px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium">
                     <span className="mr-3"><CartIcon count={0} /></span> Cart (5)
                 </Link>
+                
+        {/* Mobile Logout */}
+        <button
+          onClick={() => { handleLogout(); closeMobileMenu(); }}
+          className="w-full text-left px-3 py-2 text-gray-700 hover:text-white hover:bg-red-500 rounded-md font-medium transition duration-150"
+        >
+          Logout
+        </button>
             </div>
 
           </div>

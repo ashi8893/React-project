@@ -1,20 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-/**
- * A minimalist, dark-themed footer component, mirroring the provided design.
- * It features a commitment section and contact information, optimized for responsiveness.
- */
 const Footer = () => {
   return (
-    // Outer container: Dark background, padding, and text styling
     <footer className="bg-black text-white py-12 md:py-16 mt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Main Content Grid: Two columns on desktop, stacked on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
 
-          {/* Column 1: Our Commitment */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-bold mb-4 text-gray-200">Our Commitment</h3>
             <ul className="space-y-3 text-sm text-gray-400">
@@ -24,17 +17,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 2: Placeholder for additional links or spacer (empty for this layout) */}
           <div className="hidden md:block md:col-span-1">
-            {/* Keeping this grid space empty to push contact details far right */}
           </div>
 
-          {/* Column 3: Get In Touch */}
           <div className="md:col-span-1">
             <h3 className="text-lg font-bold mb-4 text-gray-200">Get In Touch</h3>
             <div className="space-y-4 text-sm text-gray-400">
               
-              {/* Email */}
               <div>
                 <p className="font-semibold text-gray-300">Email</p>
                 <Link to="mailto:hello@trevora.com" className="hover:text-indigo-400 transition">
@@ -42,13 +31,11 @@ const Footer = () => {
                 </Link>
               </div>
 
-              {/* Phone */}
               <div>
                 <p className="font-semibold text-gray-300">Phone</p>
                 <p>+91 98765 43210</p>
               </div>
 
-              {/* Address */}
               <div>
                 <p className="font-semibold text-gray-300">Address</p>
                 <p>123 Outdoor Gear Plaza</p>
@@ -58,10 +45,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Separator Line */}
         <div className="border-t border-gray-800 my-8 md:my-10" />
 
-        {/* Copyright */}
         <div className="text-center text-sm text-gray-500">
           &copy; 2025 trevora. All Rights Reserved.
         </div>
