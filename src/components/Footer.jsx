@@ -27,13 +27,13 @@ const Footer = () => {
               <div>
                 <p className="font-semibold text-gray-300">Email</p>
                 <Link to="mailto:hello@trevora.com" className="hover:text-indigo-400 transition">
-                  hello@trevora.com
+                  hello@flywheels.com
                 </Link>
               </div>
 
               <div>
                 <p className="font-semibold text-gray-300">Phone</p>
-                <p>+91 98765 43210</p>
+                <p>+91 88933 90415</p>
               </div>
 
               <div>
@@ -48,7 +48,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 my-8 md:my-10" />
 
         <div className="text-center text-sm text-gray-500">
-          &copy; 2025 trevora. All Rights Reserved.
+          &copy; 2025/26 fly Wheels. All Rights Reserved.
         </div>
       </div>
     </footer>

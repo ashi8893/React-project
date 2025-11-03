@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // ✅ added
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -10,7 +12,9 @@ const Products = () => {
   const [wishlist, setWishlist] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
-  const [loggedInUser, setLoggedInUser] = useState(null); // ✅ check login
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const navigate = useNavigate();
 
   // Fetch products
   useEffect(() => {
@@ -23,22 +27,31 @@ const Products = () => {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  // Load wishlist from localStorage
-  useEffect(() => {
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setWishlist(savedWishlist);
-  }, []);
-
-  // ✅ Load login status
+  // Load logged-in user
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     setLoggedInUser(user);
   }, []);
 
-  // Save wishlist to localStorage whenever it changes
+  // Load wishlist for this user
   useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }, [wishlist]);
+    if (loggedInUser) {
+      const allWishlists = JSON.parse(localStorage.getItem("wishlistData")) || {};
+      setWishlist(allWishlists[loggedInUser.email] || []);
+    }
+  }, [loggedInUser]);
+
+  // Save wishlist per user
+  useEffect(() => {
+    if (loggedInUser) {
+      const allWishlists = JSON.parse(localStorage.getItem("wishlistData")) || {};
+      allWishlists[loggedInUser.email] = wishlist;
+      localStorage.setItem("wishlistData", JSON.stringify(allWishlists));
+
+      // ✅ Trigger event to update Navbar count instantly
+      window.dispatchEvent(new Event("wishlistCountUpdated"));
+    }
+  }, [wishlist, loggedInUser]);
 
   // Apply filters
   useEffect(() => {
@@ -79,36 +92,39 @@ const Products = () => {
     setCurrentPage(1);
   }, [products, selectedCategory, priceRange, searchTerm]);
 
-  // Wishlist toggle
+  // Toggle wishlist per user
   const toggleWishlist = (product) => {
+    if (!loggedInUser) {
+      toast.warning("Please log in to add items to your wishlist.");
+      return;
+    }
+
     setWishlist((prevWishlist) => {
       const isAlreadyInWishlist = prevWishlist.some(
         (item) => item.id === product.id
       );
 
-      let updatedWishlist;
-
       if (isAlreadyInWishlist) {
-        updatedWishlist = prevWishlist.filter((item) => item.id !== product.id);
+        toast.info(`${product.name} removed from wishlist.`);
+        return prevWishlist.filter((item) => item.id !== product.id);
       } else {
-        updatedWishlist = [
+        toast.success(`${product.name} added to wishlist!`);
+        return [
           ...prevWishlist,
           { ...product, addedDate: new Date().toISOString(), type: "wishlist" },
         ];
       }
-
-      return updatedWishlist;
     });
   };
 
-  // ✅ Add to My Cars only if logged in
+  // ✅ Add to My Cars (Cart)
   const addToMyCars = (product) => {
     if (!loggedInUser) {
-      alert("Please log in or register before adding items to cart.");
+      toast.warning("Please log in or register before adding items to your cart.");
       return;
     }
 
-    const savedCars = JSON.parse(localStorage.getItem("myCars")) || [];
+    const savedCars = JSON.parse(localStorage.getItem("cart")) || [];
     const carExists = savedCars.some((car) => car.id === product.id);
 
     if (!carExists) {
@@ -116,11 +132,13 @@ const Products = () => {
         ...savedCars,
         { ...product, addedDate: new Date().toISOString() },
       ];
-      localStorage.setItem("myCars", JSON.stringify(updatedCars));
-      alert(`${product.name} added to your cart!`);
+      localStorage.setItem("cart", JSON.stringify(updatedCars));
+      toast.success(`${product.name} added to your cart!`);
     } else {
-      alert(`${product.name} is already in your cart!`);
+      toast.info(`${product.name} is already in your cart!`);
     }
+
+    navigate("/cart");
   };
 
   const isInWishlist = (productId) =>
@@ -243,7 +261,7 @@ const Products = () => {
                 key={product.id}
                 className="bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden w-80 mx-auto flex flex-col justify-between"
               >
-                <div className="w-full h-72 overflow-hidden">
+                <div className="w-full h-80 overflow-hidden relative">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -253,19 +271,25 @@ const Products = () => {
 
                 <div className="p-5 flex flex-col flex-grow justify-between text-center">
                   <div>
-                    <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                    <h2 className="text-lg font-semibold text-gray-800 mb-1">
                       {product.name}
                     </h2>
-                    <p className="text-gray-600 text-sm mb-2">
-                      {product.category}
-                    </p>
-                    <p className="text-gray-900 font-bold text-xl mb-4">
+                    <p className="text-gray-900 font-bold text-lg mb-1">
                       ₹{product.price}
                     </p>
+
+                    {product.stock > 0 ? (
+                      <p className="text-green-600 font-medium mb-4">
+                        In Stock ({product.stock} left)
+                      </p>
+                    ) : (
+                      <p className="text-red-600 font-medium mb-4">
+                        Out of Stock
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex gap-2">
-                    {/* Wishlist */}
                     <button
                       onClick={() => toggleWishlist(product)}
                       className="p-2 transition duration-300"
@@ -282,24 +306,21 @@ const Products = () => {
                       />
                     </button>
 
-                    {/* ✅ Add to Cart only if logged in */}
-                    {loggedInUser ? (
-                      <button
-                        onClick={() => addToMyCars(product)}
-                        className="flex-1 bg-orange-700 text-white py-2 rounded-lg hover:bg-orange-600 transition duration-300"
-                      >
-                        Add to Cart
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          alert("Please log in to add products to your cart.")
-                        }
-                        className="flex-1 bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed"
-                      >
-                        Login to Add
-                      </button>
-                    )}
+                    <button
+                      onClick={() =>
+                        product.stock > 0
+                          ? addToMyCars(product)
+                          : toast.error("Out of stock!")
+                      }
+                      disabled={product.stock <= 0}
+                      className={`flex-1 py-2 rounded-lg transition duration-300 ${
+                        product.stock > 0
+                          ? "bg-orange-700 text-white hover:bg-orange-600"
+                          : "bg-gray-400 text-white cursor-not-allowed"
+                      }`}
+                    >
+                      {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -360,6 +381,7 @@ const Products = () => {
         </div>
       )}
     </div>
+    
   );
 };
 

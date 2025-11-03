@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext"; // ✅ Added this line
 
-// ======================
-// ICON COMPONENTS (Kept the essential ones)
-// ======================
-
-const HeartIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-    />
-  </svg>
+// ICONS
+const HeartIcon = ({ count }) => (
+  <div className="relative">
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+      />
+    </svg>
+    {count > 0 && (
+      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        {count}
+      </span>
+    )}
+  </div>
 );
 
 const UserIcon = () => (
@@ -34,14 +40,13 @@ const CartIcon = ({ count }) => (
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
-        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0z"
       />
     </svg>
-    {/* Simple hardcoded badge for Cart */}
     {count > 0 && (
-        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-            {count}
-        </span>
+      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        {count}
+      </span>
     )}
   </div>
 );
@@ -58,115 +63,92 @@ const CloseIcon = () => (
   </svg>
 );
 
-// ======================
-// MAIN NAVBAR COMPONENT
-// ======================
-
 const Navbar = () => {
-  // Only state needed is for the mobile menu visibility
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Helper function to close the menu
-  const closeMobileMenu = () => {
-    setIsMenuOpen(false);
-  };
-
-  // navigation helper for logout
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist(); // ✅ Added this line
 
+  // ✅ Detect if user is logged in
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    setUser(loggedInUser);
+  }, []);
+
+  // ✅ Logout handler
   const handleLogout = () => {
-    // Clear common auth keys (token/user) from localStorage
-    try {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-    } catch (e) {
-      // ignore localStorage errors
-    }
-    // navigate to login page
-    navigate('/login');
+    localStorage.removeItem("loggedInUser");
+    setUser(null);
+    navigate("/login");
   };
 
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div className="flex items-center justify-between h-16">
-
-          {/* 1. Logo */}
-          <Link to="/" className="text-xl font-extrabold text-orange-700 hover:text-indigo-900 transition duration-300">
-            Fly Wheels  
+          {/* Logo */}
+          <Link
+            to="/"
+            className="text-2xl font-extrabold text-orange-700 hover:text-orange-900 transition duration-300"
+          >
+            Fly Wheels
           </Link>
 
-          {/* 2. Desktop Navigation Links (Hardcoded, no .map()) */}
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
-              Home
-            </Link>
-            <Link to="/Products" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
-              Products
-            </Link>
-            <Link to="/About" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
-              About
-            </Link>
-            <Link to="/Others" className="text-gray-700 hover:text-indigo-600 font-medium transition duration-200">
-              Contact
-            </Link>
+            <Link to="/" className="hover:text-orange-700">Home</Link>
+            <Link to="/Products" className="hover:text-orange-700">Products</Link>
+            <Link to="/About" className="hover:text-orange-700">About</Link>
+            <Link to="/Others" className="hover:text-orange-700">Contact</Link>
           </div>
 
-          {/* 3. Desktop Icons (Hardcoded, no .map()) */}
+          {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-3">
-            
-            {/* Wishlist Icon */}
-            <Link 
-                to="/wishlist" 
-                className="p-2 text-gray-700 hover:text-red-500 hover:bg-gray-100 rounded-full transition duration-200"
-                title="Wishlist"
-            >
-                <HeartIcon />
+            {/* ✅ Wishlist with count */}
+            <Link to="/wishlist" className="hover:text-orange-700">
+              <HeartIcon count={wishlistCount} />
             </Link>
 
-            {/* Account Icon */}
-            <Link 
-                to="/account" 
-                className="p-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded-full transition duration-200"
-                title="Account"
-            >
-                <UserIcon />
+            <Link to="/account" className="hover:text-orange-700">
+              <UserIcon />
             </Link>
 
-            {/* Cart Icon (with count passed as prop) */}
-            <Link 
-                to="/cart" 
-                className="p-2 text-gray-700 hover:text-indigo-600 hover:bg-gray-100 rounded-full transition duration-200"
-                title="Cart"
-            >
-                <CartIcon count={5} />
+            <Link to="/cart" className="hover:text-orange-700">
+              <CartIcon count={cartCount} />
             </Link>
 
-            {/* Logout Button */}
-            <button
-              onClick={handleLogout}
-              className="ml-2 px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition duration-200"
-              title="Logout"
-            >
-              Logout
-            </button>
-
+            {/* ✅ Show username + Logout OR Login */}
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <span className="text-gray-700 text-sm">
+                  Hi, <span className="font-semibold">{user.name}</span>
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="ml-1 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="ml-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+              >
+                Login
+              </Link>
+            )}
           </div>
 
-          {/* 4. Mobile Button & Cart */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
-            
-            {/* Mobile Cart Icon */}
-            <Link to="/cart" className="relative p-2 text-gray-700 hover:text-indigo-600">
-                <CartIcon count={5} />
+            <Link to="/cart">
+              <CartIcon count={cartCount} />
             </Link>
-
-            {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-700 hover:text-indigo-600 rounded-full transition duration-200"
-              aria-label="Toggle Menu"
+              className="p-2 text-gray-700 hover:text-indigo-600 rounded-full"
             >
               {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
@@ -174,46 +156,39 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* 5. Mobile Menu Dropdown (Hardcoded) */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-50 border-t border-gray-200">
           <div className="px-4 py-3 space-y-1">
-            
-            {/* Nav Links */}
-            <Link to="/" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              Home
-            </Link>
-            <Link to="/Products" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              Products
-            </Link>
-            <Link to="/Cars" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              About
-            </Link>
-            <Link to="/Others" onClick={closeMobileMenu} className="block px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium transition duration-150">
-              Contact
-            </Link>
-            
-            {/* Icon Links (Full Text) */}
-            <div className="border-t border-gray-200 pt-2 space-y-1">
-                <Link to="/wishlist" onClick={closeMobileMenu} className="flex items-center px-3 py-2 text-gray-700 hover:text-red-500 hover:bg-indigo-50 rounded-md font-medium">
-                    <span className="mr-3"><HeartIcon /></span> Wishlist (3)
-                </Link>
-                <Link to="/account" onClick={closeMobileMenu} className="flex items-center px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium">
-                    <span className="mr-3"><UserIcon /></span> Account
-                </Link>
-                <Link to="/cart" onClick={closeMobileMenu} className="flex items-center px-3 py-2 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md font-medium">
-                    <span className="mr-3"><CartIcon count={0} /></span> Cart (5)
-                </Link>
-                
-        {/* Mobile Logout */}
-        <button
-          onClick={() => { handleLogout(); closeMobileMenu(); }}
-          className="w-full text-left px-3 py-2 text-gray-700 hover:text-white hover:bg-red-500 rounded-md font-medium transition duration-150"
-        >
-          Logout
-        </button>
-            </div>
+            <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+            <Link to="/Products" onClick={() => setIsMenuOpen(false)}>Products</Link>
+            <Link to="/About" onClick={() => setIsMenuOpen(false)}>About</Link>
+            <Link to="/Others" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+            <Link to="/wishlist" onClick={() => setIsMenuOpen(false)}>Wishlist</Link>
+            <Link to="/account" onClick={() => setIsMenuOpen(false)}>Account</Link>
 
+            {user ? (
+              <>
+                <p className="px-3 text-gray-700">Hi, <span className="font-semibold">{user.name}</span></p>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full text-left px-3 py-2 text-gray-700 hover:bg-red-500 hover:text-white rounded-md"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-blue-600 hover:text-white rounded-md"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}

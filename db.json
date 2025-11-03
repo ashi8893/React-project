@@ -1,107 +1,120 @@
 {
   "products": [
     {
-      "id": 1,
-      "name": "Premium Boulevard Mercedes Benz CLK 63 AMG Black Series",
+      "id": "1",
+      "name": "Benz CLK 63 AMG Black Series",
       "price": 599,
+      "stock": 0,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/71eMXisQ-GL._SL1000.jpg?v=1756469422"
     },
     {
-      "id": 2,
-      "name": "Scale Sports Car with Full Metal Body Construction & Real Riders Tires for Collectors",
+      "id": "2",
+      "name": "Sports Car with Full Metal Body Construction",
       "price": 799,
+      "stock": 31,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Chrome 2025 Shelby Cobra 427 S/C Diecast Car",
       "price": 449,
+      "stock": 12,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM29_533x.jpg?v=1748434712"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
       "price": 399,
       "category": "car",
+      "stock": 6,
       "image": "https://www.funcorp.in/cdn/shop/files/61QkH3jYqpL._SL1000_940x.jpg?v=1748434865"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
       "price": 399,
+      "stock": 15,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM28_533x.jpg?v=1748434707"
     },
     {
-      "id": 6,
-      "name": "Sports Car with Full Metal Body Construction & Real Riders Tires for Collectors",
+      "id": "6",
+      "name": "Sports Car with Full Metal Body Construction",
       "price": 699,
+      "stock": 25,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/81Z3IJ9yMFL._SL1500_1270x.jpg?v=1757507078"
     },
     {
-      "id": 7,
-      "name": "Scale Mazda RX 7 Die-Cast Vehicles For Ages 3+",
+      "id": "7",
+      "name": "Mazda RX 7 Die-Cast Vehicles For Ages 3+",
       "price": 199,
+      "stock": 45,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM27_1920x.jpg?v=1748434701"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Hot Wheels Street Power Ferenzo Large Scale Motorcycles",
       "price": 299,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_ferenzo-1_785x.jpg?v=1675922729"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Hot Wheels Street Power Fat Ride Large Scale Motorcycles",
       "price": 299,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_fat_ride-1_785x.jpg?v=1675922729"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Hot Wheels Street Power Xblade Large-Scale Motorcycles (Blue)",
       "price": 299,
+      "stock": 17,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/51SLUBW5EvL_785x.jpg?v=1757507100"
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Hot Wheels Street Power Turbo Bike",
       "price": 299,
+      "stock": 33,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_turbo_bike-1_785x.jpg?v=1675922739"
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD73)",
       "price": 499,
+      "stock": 0,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61XwvAU6LhL_785x.jpg?v=1757507094"
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD91)",
       "price": 499,
+      "stock": 12,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61FRoKzySDL_670x.jpg?v=1757507066"
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Demolition Doubles 2 Pack Collection, DC Batman Vs Batman Classic TV Series",
       "price": 349,
+      "stock": 19,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61ONc6mQZQL._SL1000.jpg?v=1757071557"
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Hot Wheels Monster Trucks 1:64 Scale Demolition Doubles 2 Pack Collection, Tiger Shark Vs 5 Alarm",
       "price": 349,
+      "stock": 3,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61iUtxMTOJL._SL1000.jpg?v=1757071569"
     }
@@ -138,11 +151,39 @@
       "name": "irfan",
       "email": "irfan@gmal.com",
       "password": "Ashi@123"
+    },
+    {
+      "id": "515d",
+      "name": "asgfggb",
+      "email": "as@gmail.com",
+      "password": "asd",
+      "address": "asd"
+    },
+    {
+      "id": "1482",
+      "name": "Aathika",
+      "email": "athika@gmail.com",
+      "password": "9946",
+      "address": "karayil house chalappuram ,nadapuram"
+    },
+    {
+      "id": "972f",
+      "name": "muhammed ansil R",
+      "email": "ansilr@gmail.com",
+      "password": "9999",
+      "address": "eripparambil house payyoli kannur"
+    },
+    {
+      "id": "6af8",
+      "name": "naheel ",
+      "email": "naheel@gmail.com",
+      "password": "0000",
+      "address": "meleparambil house"
     }
   ],
   "orders": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "productIds": [
         1,
@@ -154,7 +195,7 @@
       "date": "2025-10-31"
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 2,
       "productIds": [
         5,

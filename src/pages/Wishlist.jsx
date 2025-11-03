@@ -4,23 +4,49 @@ import { FaHeart, FaTrash } from "react-icons/fa";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
-  // Load wishlist from localStorage
+  // Load logged-in user
   useEffect(() => {
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setWishlist(savedWishlist);
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    setLoggedInUser(user);
   }, []);
+
+  // Load wishlist for this user
+  useEffect(() => {
+    if (loggedInUser) {
+      const allWishlists = JSON.parse(localStorage.getItem("wishlistData")) || {};
+      setWishlist(allWishlists[loggedInUser.email] || []);
+    }
+  }, [loggedInUser]);
+
+  // Save wishlist per user
+  useEffect(() => {
+    if (loggedInUser) {
+      const allWishlists = JSON.parse(localStorage.getItem("wishlistData")) || {};
+      allWishlists[loggedInUser.email] = wishlist;
+      localStorage.setItem("wishlistData", JSON.stringify(allWishlists));
+    }
+  }, [wishlist, loggedInUser]);
 
   // Remove item from wishlist
   const removeFromWishlist = (productId) => {
+    if (!loggedInUser) {
+      alert("Please log in to manage your wishlist.");
+      return;
+    }
     const updatedWishlist = wishlist.filter((item) => item.id !== productId);
     setWishlist(updatedWishlist);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
   };
 
-  // Move item to My Cars
+  // Move item to My Cars (Cart)
   const moveToMyCars = (product) => {
-    const savedCars = JSON.parse(localStorage.getItem("myCars")) || [];
+    if (!loggedInUser) {
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+
+    const savedCars = JSON.parse(localStorage.getItem("cart")) || [];
     const carExists = savedCars.some((car) => car.id === product.id);
 
     if (!carExists) {
@@ -28,7 +54,7 @@ const Wishlist = () => {
         ...savedCars,
         { ...product, addedDate: new Date().toISOString() },
       ];
-      localStorage.setItem("myCars", JSON.stringify(updatedCars));
+      localStorage.setItem("cart", JSON.stringify(updatedCars));
       removeFromWishlist(product.id);
       alert(`${product.name} moved to My Cars collection!`);
     } else {
@@ -109,7 +135,7 @@ const Wishlist = () => {
                     <FaTrash className="text-sm" />
                     Remove
                   </button>
-                  
+
                   <button
                     onClick={() => moveToMyCars(product)}
                     className="flex-1 bg-[#FD5600] text-white py-2 rounded-lg hover:bg-orange-600 transition duration-300"
@@ -128,14 +154,17 @@ const Wishlist = () => {
               <FaHeart className="text-4xl text-gray-400" />
             </div>
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">
-              Your wishlist is empty
+              {loggedInUser
+                ? "Your wishlist is empty"
+                : "Please log in to view your wishlist"}
             </h3>
-           
             <button
-              onClick={() => window.location.href = "/products"}
+              onClick={() =>
+                (window.location.href = loggedInUser ? "/products" : "/login")
+              }
               className="px-6 py-2 bg-[#FD5600] text-white rounded-lg hover:bg-orange-600 transition duration-300"
             >
-              Add Products
+              {loggedInUser ? "Add Products" : "Go to Login"}
             </button>
           </div>
         </div>

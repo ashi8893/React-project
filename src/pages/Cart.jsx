@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ for navigation to checkout
+import { useNavigate, useLocation } from "react-router-dom";
 
-const MyCars = () => {
+const Cart = () => {
   const [myCars, setMyCars] = useState([]);
-  const navigate = useNavigate(); // ✅ navigation hook
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Load cars from localStorage on component mount
-  useEffect(() => {
-    const savedCars = JSON.parse(localStorage.getItem("myCars")) || [];
+  // ✅ Load cart from localStorage whenever pathname OR cartUpdated event occurs
+  const loadCart = () => {
+    const savedCars = JSON.parse(localStorage.getItem("cart")) || [];
     setMyCars(savedCars);
+  };
+
+  useEffect(() => {
+    loadCart();
+  }, [location.pathname]);
+
+  // ✅ Listen for "cartUpdated" event to reload instantly when new item added
+  useEffect(() => {
+    window.addEventListener("cartUpdated", loadCart);
+    return () => window.removeEventListener("cartUpdated", loadCart);
   }, []);
 
-  // Remove car from My Cars
   const removeFromMyCars = (carId) => {
     const updatedCars = myCars.filter((car) => car.id !== carId);
     setMyCars(updatedCars);
-    localStorage.setItem("myCars", JSON.stringify(updatedCars));
+    localStorage.setItem("cart", JSON.stringify(updatedCars));
+    window.dispatchEvent(new Event("cartUpdated")); // ✅ keep it in sync
   };
 
-  // ✅ Handle Buy Now
   const handleBuyNow = (car) => {
-    // Store selected car in localStorage for checkout
     localStorage.setItem("selectedCar", JSON.stringify(car));
-    navigate("/checkout"); // ✅ Navigate to checkout page
+    navigate("/Payment");
   };
 
-  // Calculate total value
   const totalValue = myCars.reduce((sum, car) => sum + car.price, 0);
 
   return (
@@ -34,7 +42,7 @@ const MyCars = () => {
         My Cars Collection
       </h1>
 
-      {/* Summary */}
+      {/* Summary Section */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8 max-w-2xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
           <div>
@@ -54,7 +62,7 @@ const MyCars = () => {
         </div>
       </div>
 
-      {/* Cars Grid */}
+      {/* Cart Grid */}
       {myCars.length > 0 ? (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {myCars.map((car) => (
@@ -85,15 +93,12 @@ const MyCars = () => {
                 </div>
 
                 <div className="flex flex-col gap-3 mt-4">
-                  {/* ✅ Buy Now Button */}
                   <button
                     onClick={() => handleBuyNow(car)}
                     className="w-full bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition duration-300"
                   >
                     Buy Now
                   </button>
-
-                  {/* Remove Button */}
                   <button
                     onClick={() => removeFromMyCars(car.id)}
                     className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-300"
@@ -122,4 +127,4 @@ const MyCars = () => {
   );
 };
 
-export default MyCars;
+export default Cart;

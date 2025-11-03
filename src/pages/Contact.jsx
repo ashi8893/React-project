@@ -44,7 +44,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Enter your name"
                   required
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
 
@@ -59,7 +59,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Enter your email"
                   required
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
               </div>
 
@@ -74,13 +74,13 @@ const Contact = () => {
                   rows="5"
                   placeholder="Write your message..."
                   required
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all"
+                className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-all"
               >
                 Send Message
               </button>
@@ -94,7 +94,7 @@ const Contact = () => {
 
             {/* Contact Info */}
             <div className="bg-blue-50 p-6 rounded-xl">
-              <h3 className="text-xl font-semibold mb-4 text-blue-700">
+              <h3 className="text-xl font-semibold mb-4 text-orange-700">
                 Get in Touch
               </h3>
               <p className="text-gray-700 mb-4">
@@ -103,16 +103,16 @@ const Contact = () => {
               </p>
               <ul className="space-y-3">
                 <li>
-                  📍 <strong>Address:</strong> 123 Market Street, Mumbai, India
+                   <strong>Address:</strong> 123 Outdoor Gear Plaza, Bangalore
                 </li>
                 <li>
-                  📞 <strong>Phone:</strong> +91 98765 43210
+                  <strong>Phone:</strong> +91 88933 90415
                 </li>
                 <li>
-                  📧 <strong>Email:</strong> support@yourecommerce.com
+                 <strong>Email:</strong> flywheels@gmail.com
                 </li>
                 <li>
-                  🕒 <strong>Hours:</strong> Mon - Sat (9:00 AM - 6:00 PM)
+                   <strong>Hours:</strong> Mon - Sat (9:00 AM - 6:00 PM)
                 </li>
               </ul>
             </div>

@@ -1,5 +1,7 @@
+// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // ✅ Import Toastify
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,24 +11,44 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      toast.warning("Please enter both email and password"); // ⚠️ Toast instead of alert
+      return;
+    }
 
     try {
-      const response = await fetch("http://localhost:3001/users");
-      const users = await response.json();
+      const res = await fetch("http://localhost:3001/users");
+      const users = await res.json();
 
       const user = users.find(
         (u) => u.email === email && u.password === password
       );
 
-      if (user) {
-        localStorage.setItem("loggedUser", JSON.stringify(user));
-        navigate("/");
-      } else {
+      if (!user) {
         setError("Invalid email or password");
+        toast.error("Invalid email or password"); // ❌ Toast for invalid login
+        return;
       }
-    } catch (error) {
-      setError("Error connecting to server");
-      console.error(error);
+
+      // ✅ Save logged-in user in localStorage
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+      // ✅ Toast for successful login
+      toast.success(`✅ Login successful! Welcome back, ${user.name || "User"}!`);
+
+      // ✅ Redirect to home or any page you like
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 1500); // small delay to let toast show before redirect
+
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Unable to connect to server. Please try again later.");
+      toast.error("Unable to connect to server. Please try again later."); // ❌ Toast for server issue
     }
   };
 
@@ -62,9 +84,7 @@ const Login = () => {
             />
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
           <button
             type="submit"
@@ -78,7 +98,7 @@ const Login = () => {
           Don’t have an account?{" "}
           <span
             className="text-blue-600 cursor-pointer hover:underline"
-            onClick={() => navigate("/Register")}
+            onClick={() => navigate("/Account")}
           >
             Register
           </span>
