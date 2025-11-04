@@ -1,45 +1,78 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [myCars, setMyCars] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // ✅ Load cart from localStorage whenever pathname OR cartUpdated event occurs
+  // ✅ Load cart from localStorage
   const loadCart = () => {
     const savedCars = JSON.parse(localStorage.getItem("cart")) || [];
     setMyCars(savedCars);
   };
 
+  // ✅ Load cart first time only
   useEffect(() => {
     loadCart();
-  }, [location.pathname]);
+  }, []);
 
-  // ✅ Listen for "cartUpdated" event to reload instantly when new item added
+  // ✅ Listen for global cart updates (NO REFRESH NEEDED)
   useEffect(() => {
     window.addEventListener("cartUpdated", loadCart);
     return () => window.removeEventListener("cartUpdated", loadCart);
   }, []);
 
-  const removeFromMyCars = (carId) => {
-    const updatedCars = myCars.filter((car) => car.id !== carId);
-    setMyCars(updatedCars);
-    localStorage.setItem("cart", JSON.stringify(updatedCars));
-    window.dispatchEvent(new Event("cartUpdated")); // ✅ keep it in sync
+  // ✅ Increase Quantity
+  const increaseQty = (id) => {
+    const updated = myCars.map((item) =>
+      item.id === id ? { ...item, qty: (item.qty || 1) + 1 } : item
+    );
+
+    setMyCars(updated);
+    localStorage.setItem("cart", JSON.stringify(updated));
+
+    // ✅ Tell navbar + other pages to update
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  const handleBuyNow = (car) => {
-    localStorage.setItem("selectedCar", JSON.stringify(car));
+  // ✅ Decrease Quantity
+  const decreaseQty = (id) => {
+    const updated = myCars
+      .map((item) =>
+        item.id === id ? { ...item, qty: (item.qty || 1) - 1 } : item
+      )
+      .filter((item) => item.qty > 0);
+
+    setMyCars(updated);
+    localStorage.setItem("cart", JSON.stringify(updated));
+
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  // ✅ Remove item directly
+  const removeFromMyCars = (id) => {
+    const updated = myCars.filter((car) => car.id !== id);
+    setMyCars(updated);
+    localStorage.setItem("cart", JSON.stringify(updated));
+
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  // ✅ Total
+  const totalValue = myCars.reduce(
+    (sum, car) => sum + car.price * (car.qty || 1),
+    0
+  );
+
+  const handleGlobalBuyNow = () => {
+    localStorage.setItem("selectedCar", JSON.stringify(myCars));
     navigate("/Payment");
   };
 
-  const totalValue = myCars.reduce((sum, car) => sum + car.price, 0);
-
   return (
-    <div className="bg-gray-50 py-10 px-6 sm:px-10 lg:px-20 min-h-screen">
+    <div className="bg-gray-50 py-10 px-6 sm:px-10 lg:px-20 min-h-screen relative">
       <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-        My Cars Collection
+        My Cart
       </h1>
 
       {/* Summary Section */}
@@ -47,7 +80,7 @@ const Cart = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
           <div>
             <p className="text-2xl font-bold text-gray-800">{myCars.length}</p>
-            <p className="text-gray-600">Total Cars</p>
+            <p className="text-gray-600">Total Items</p>
           </div>
           <div>
             <p className="text-2xl font-bold text-green-600">₹{totalValue}</p>
@@ -55,7 +88,9 @@ const Cart = () => {
           </div>
           <div>
             <p className="text-2xl font-bold text-blue-600">
-              {myCars.length > 0 ? Math.round(totalValue / myCars.length) : 0}
+              {myCars.length > 0
+                ? Math.round(totalValue / myCars.length)
+                : 0}
             </p>
             <p className="text-gray-600">Average Price</p>
           </div>
@@ -85,27 +120,39 @@ const Cart = () => {
                   </h2>
                   <p className="text-gray-600 text-sm mb-2">{car.category}</p>
                   <p className="text-grey-950 font-bold text-xl mb-4">
-                    ₹{car.price}
+                    ₹{car.price * (car.qty || 1)}
                   </p>
+
+                  {/* ✅ Quantity Buttons */}
+                  <div className="flex justify-center items-center gap-4 mb-3">
+                    <button
+                      onClick={() => decreaseQty(car.id)}
+                      className="bg-gray-300 px-3 py-1 rounded-md text-lg"
+                    >
+                      -
+                    </button>
+                    <span className="text-lg font-semibold">
+                      {car.qty || 1}
+                    </span>
+                    <button
+                      onClick={() => increaseQty(car.id)}
+                      className="bg-gray-300 px-3 py-1 rounded-md text-lg"
+                    >
+                      +
+                    </button>
+                  </div>
+
                   <p className="text-gray-500 text-xs">
                     Added on: {new Date(car.addedDate).toLocaleDateString()}
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-3 mt-4">
-                  <button
-                    onClick={() => handleBuyNow(car)}
-                    className="w-full bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition duration-300"
-                  >
-                    Buy Now
-                  </button>
-                  <button
-                    onClick={() => removeFromMyCars(car.id)}
-                    className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-300"
-                  >
-                    Remove from Collection
-                  </button>
-                </div>
+                <button
+                  onClick={() => removeFromMyCars(car.id)}
+                  className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-300 mt-4"
+                >
+                  Remove
+                </button>
               </div>
             </div>
           ))}
@@ -117,11 +164,20 @@ const Cart = () => {
               Your collection is empty
             </h3>
             <p className="text-gray-600 mb-6">
-              Start building your Hot Wheels collection by adding cars from the
-              products page!
+              Start adding cars to your collection!
             </p>
           </div>
         </div>
+      )}
+
+      {/* ✅ GLOBAL BUY NOW BUTTON */}
+      {myCars.length > 0 && (
+        <button
+          onClick={handleGlobalBuyNow}
+          className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full shadow-lg text-lg font-semibold transition-all"
+        >
+          Buy Now
+        </button>
       )}
     </div>
   );

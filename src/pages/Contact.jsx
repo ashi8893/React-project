@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -7,19 +8,38 @@ const Contact = () => {
     email: "",
     message: "",
   });
-
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // ✅ Handles form input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // ✅ Sends email using EmailJS
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
+    setLoading(true);
+
+    const serviceID = "service_x8jnmou";
+    const templateID = "template_34d344j";
+    const publicKey = "oZknWyWlD-RWnRA20"; // ⚠️ Replace with your actual EmailJS public key
+
+    emailjs
+      .send(serviceID, templateID, formData, publicKey)
+      .then((res) => {
+        console.log("Email sent:", res);
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+        setLoading(false);
+        alert("✅ Your message has been sent successfully!");
+      })
+      .catch((err) => {
+        console.error("Error sending email:", err);
+        setLoading(false);
+        alert("❌ Failed to send message. Please try again later.");
+      });
   };
 
   return (
@@ -80,9 +100,14 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-all"
+                disabled={loading}
+                className={`w-full py-3 rounded-lg font-semibold transition-all ${
+                  loading
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-orange-600 text-white hover:bg-orange-700"
+                }`}
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
 
               {submitted && (
@@ -103,16 +128,16 @@ const Contact = () => {
               </p>
               <ul className="space-y-3">
                 <li>
-                   <strong>Address:</strong> 123 Outdoor Gear Plaza, Bangalore
+                  <strong>Address:</strong> 123 Outdoor Gear Plaza, Bangalore
                 </li>
                 <li>
                   <strong>Phone:</strong> +91 88933 90415
                 </li>
                 <li>
-                 <strong>Email:</strong> flywheels@gmail.com
+                  <strong>Email:</strong> flywheels@gmail.com
                 </li>
                 <li>
-                   <strong>Hours:</strong> Mon - Sat (9:00 AM - 6:00 PM)
+                  <strong>Hours:</strong> Mon - Sat (9:00 AM - 6:00 PM)
                 </li>
               </ul>
             </div>

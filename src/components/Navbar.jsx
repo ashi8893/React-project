@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext"; // ✅ Added this line
+import { useWishlist } from "../context/WishlistContext";
 
-// ICONS
+// ================== ICONS ==================
 const HeartIcon = ({ count }) => (
   <div className="relative">
     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@ const CartIcon = ({ count }) => (
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
-        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0z"
+        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.630-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
       />
     </svg>
     {count > 0 && (
@@ -49,6 +49,22 @@ const CartIcon = ({ count }) => (
       </span>
     )}
   </div>
+);
+
+const TruckIcon = () => (
+  <svg
+    className="w-6 h-6 transition-transform duration-300 hover:scale-110 hover:text-orange-700"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 3h13v13H3V3zm13 5h5l1 4v4h-6V8zm-8 10a2 2 0 11-4 0 2 2 0 014 0zm10 0a2 2 0 11-4 0 2 2 0 014 0z"
+    />
+  </svg>
 );
 
 const MenuIcon = () => (
@@ -63,20 +79,23 @@ const CloseIcon = () => (
   </svg>
 );
 
+// ================== NAVBAR COMPONENT ==================
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { cartCount } = useCart();
-  const { wishlistCount } = useWishlist(); // ✅ Added this line
+  const { wishlistCount } = useWishlist();
 
-  // ✅ Detect if user is logged in
+  // ✅ AUTO DETECT ACTIVE MENU BASED ON URL
+  const activeMenu = location.pathname;
+
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     setUser(loggedInUser);
   }, []);
 
-  // ✅ Logout handler
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
     setUser(null);
@@ -87,25 +106,57 @@ const Navbar = () => {
     <nav className="bg-white shadow-lg sticky top-0 z-50 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          
           {/* Logo */}
           <Link
             to="/"
             className="text-2xl font-extrabold text-orange-700 hover:text-orange-900 transition duration-300"
           >
-            Fly Wheels
+            Hot Wheels
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="hover:text-orange-700">Home</Link>
-            <Link to="/Products" className="hover:text-orange-700">Products</Link>
-            <Link to="/About" className="hover:text-orange-700">About</Link>
-            <Link to="/Others" className="hover:text-orange-700">Contact</Link>
+            
+            <Link
+              to="/"
+              className={`transition duration-300 ${
+                activeMenu === "/" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
+              }`}
+            >
+              Home
+            </Link>
+
+            <Link
+              to="/Products"
+              className={`transition duration-300 ${
+                activeMenu === "/Products" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
+              }`}
+            >
+              Products
+            </Link>
+
+            <Link
+              to="/About"
+              className={`transition duration-300 ${
+                activeMenu === "/About" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
+              }`}
+            >
+              About
+            </Link>
+
+            <Link
+              to="/Others"
+              className={`transition duration-300 ${
+                activeMenu === "/Others" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
+              }`}
+            >
+              Contact
+            </Link>
           </div>
 
           {/* Desktop Icons */}
-          <div className="hidden md:flex items-center space-x-3">
-            {/* ✅ Wishlist with count */}
+          <div className="hidden md:flex items-center space-x-5 ml-20">
             <Link to="/wishlist" className="hover:text-orange-700">
               <HeartIcon count={wishlistCount} />
             </Link>
@@ -118,15 +169,20 @@ const Navbar = () => {
               <CartIcon count={cartCount} />
             </Link>
 
-            {/* ✅ Show username + Logout OR Login */}
+            {/* Orders */}
+            <Link to="/Shipping" className="hover:text-orange-700">
+              <TruckIcon />
+            </Link>
+
+            {/* User Greeting */}
             {user ? (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-8">
                 <span className="text-gray-700 text-sm">
                   Hi, <span className="font-semibold">{user.name}</span>
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="ml-1 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
+                  className="mr-1 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
                 >
                   Logout
                 </button>
@@ -134,7 +190,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="ml-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+                className="ml-2 px-3 py-1 bg-green-700 text-white text-sm rounded hover:bg-green-900"
               >
                 Login
               </Link>
@@ -166,10 +222,13 @@ const Navbar = () => {
             <Link to="/Others" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <Link to="/wishlist" onClick={() => setIsMenuOpen(false)}>Wishlist</Link>
             <Link to="/account" onClick={() => setIsMenuOpen(false)}>Account</Link>
+            <Link to="/orders" onClick={() => setIsMenuOpen(false)}>Orders</Link>
 
             {user ? (
               <>
-                <p className="px-3 text-gray-700">Hi, <span className="font-semibold">{user.name}</span></p>
+                <p className="px-3 text-gray-700">
+                  Hi, <span className="font-semibold">{user.name}</span>
+                </p>
                 <button
                   onClick={() => {
                     handleLogout();

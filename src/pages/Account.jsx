@@ -5,7 +5,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
@@ -15,8 +15,15 @@ const Register = () => {
     setError("");
     setSuccess("");
 
-    if (!name || !email || !password || !address) {
+    // ✅ Removed address validation
+    if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required");
+      return;
+    }
+
+    // ✅ Check password match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
       return;
     }
 
@@ -30,7 +37,8 @@ const Register = () => {
         return;
       }
 
-      const newUser = { name, email, password, address };
+      // ✅ Removed address from newUser
+      const newUser = { name, email, password };
 
       await fetch("http://localhost:3001/users", {
         method: "POST",
@@ -38,11 +46,8 @@ const Register = () => {
         body: JSON.stringify(newUser),
       });
 
-      // ✅ Save user in localStorage (auto login)
-      localStorage.setItem("loggedInUser", JSON.stringify(newUser));
-
-      setSuccess("Registration successful! Redirecting...");
-      setTimeout(() => navigate("/"), 2000);
+      setSuccess("Registration successful! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
       console.error(err);
       setError("Error connecting to server");
@@ -94,21 +99,19 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-gray-600 mb-1">Address</label>
+            <label className="block text-gray-600 mb-1">Re-enter Password</label>
             <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your address"
+              placeholder="Re-enter your password"
               required
             />
           </div>
 
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-          {success && (
-            <p className="text-green-500 text-sm text-center">{success}</p>
-          )}
+          {success && <p className="text-green-500 text-sm text-center">{success}</p>}
 
           <button
             type="submit"
@@ -122,7 +125,7 @@ const Register = () => {
           Already have an account?{" "}
           <span
             className="text-blue-600 cursor-pointer hover:underline"
-            onClick={() => navigate("/Login")}
+            onClick={() => navigate("/login")}
           >
             Login
           </span>

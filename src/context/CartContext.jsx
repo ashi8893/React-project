@@ -1,4 +1,3 @@
-// src/context/CartContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
@@ -41,5 +40,4 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// ✅ Custom hook
 export const useCart = () => useContext(CartContext);

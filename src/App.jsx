@@ -9,12 +9,13 @@ import Cart from "./pages/Cart";
 import SearchResults from "./components/SearchResults";
 import About from "./pages/About";
 import Others from "./pages/Contact";
-import Login from "./pages/login";
+import Login from "./pages/Login";
+import Payment from "./pages/Payment";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
-import { ToastContainer } from "react-toastify";
-import Payment from './pages/Payment'
+import Shipping from "./pages/Shipping";
 
 function App() {
   return (
@@ -25,26 +26,24 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route
-                path="/Products"
-                element={<Products category="Products" />}
-              />
-              
+              <Route path="/products" element={<Products category="Products" />} />
               <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/Payment" element={<Payment />} />
-              <Route path="/About" element={<About />} />
-              <Route path="/Others" element={<Others />} />
-              <Route path="/Account" element={<Account />} />
-              <Route path="/Cart" element={<Cart />} />
-              <Route path="/Login" element={<Login />} />
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/others" element={<Others />} />
+              <Route path="/account" element={<Account />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/search" element={<SearchResults />} />
             </Routes>
           </div>
+
+          {/* ✅ ToastContainer (Only one, fast & centered) */}
           <ToastContainer
             position="top-right"
-            autoClose={3000}
+            autoClose={1000}        // ⏱️ Toast closes in 1 second
             hideProgressBar={false}
-            newestOnTop={false}
             closeOnClick
             pauseOnHover
             draggable
