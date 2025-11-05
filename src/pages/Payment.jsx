@@ -13,7 +13,6 @@ const Payment = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Load user + cart data
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     if (!user) {
@@ -21,44 +20,30 @@ const Payment = () => {
       navigate("/login");
       return;
     }
-
     setLoggedInUser(user);
 
     const urlParams = new URLSearchParams(window.location.search);
     const isSingleBuy = urlParams.get("single") === "true";
 
-    // ✅ Single Buy
+    let items = [];
     if (isSingleBuy) {
       const singleCar = JSON.parse(localStorage.getItem("selectedCar"));
-      if (singleCar) {
-        setCartItems([{ ...singleCar, qty: singleCar.qty || 1 }]);
-        return;
-      }
+      if (singleCar) items = [{ ...singleCar, qty: singleCar.qty || 1 }];
+    } else {
+      items = JSON.parse(localStorage.getItem("cart")) || [];
     }
 
-    // ✅ Cart Buy
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    if (savedCart.length === 0) {
+    if (items.length === 0) {
       toast.info("Your cart is empty. Add items before checkout.");
-      navigate("/cart");
+      navigate(isSingleBuy ? "/" : "/cart");
       return;
     }
 
-    setCartItems(
-      savedCart.map((item) => ({
-        ...item,
-        qty: item.qty || 1,
-      }))
-    );
+    setCartItems(items);
   }, [navigate]);
 
-  // ✅ Correct total calculation
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * (item.qty || 1),
-    0
-  );
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
 
-  // ✅ Handle Payment + Save order to JSON Server
   const handlePayment = async (e) => {
     e.preventDefault();
 
@@ -84,12 +69,10 @@ const Payment = () => {
       address,
       phone,
       paymentMethod,
-      totalAmount: totalPrice, // ✅ Correct amount saved
+      totalAmount: totalPrice,
       status: "Processing",
       createdAt: new Date().toISOString(),
       trackingId: "TRK" + Math.floor(Math.random() * 999999),
-
-      // ✅ Save qty also
       items: cartItems.map((item) => ({
         name: item.name,
         price: item.price,
@@ -108,6 +91,7 @@ const Payment = () => {
 
       toast.success("🎉 Payment Successful! Order placed successfully.");
 
+      // Clear cart & single-buy selection
       localStorage.removeItem("cart");
       localStorage.removeItem("selectedCar");
 
@@ -125,14 +109,9 @@ const Payment = () => {
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* ✅ LEFT SIDE — PAYMENT FORM */}
-        <form
-          onSubmit={handlePayment}
-          className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
-        >
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-            Billing Details
-          </h2>
+        {/* Payment Form */}
+        <form onSubmit={handlePayment} className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Billing Details</h2>
 
           <div>
             <label className="block text-gray-600 mb-1">Full Name</label>
@@ -167,7 +146,7 @@ const Payment = () => {
             />
           </div>
 
-          {/* ✅ Payment Method */}
+          {/* Payment Method */}
           <div>
             <label className="block text-gray-600 mb-2">Payment Method</label>
             <div className="space-y-2">
@@ -203,7 +182,7 @@ const Payment = () => {
             </div>
           </div>
 
-          {/* ✅ Conditional Payment Inputs */}
+          {/* Conditional Payment Inputs */}
           {paymentMethod === "card" && (
             <div>
               <label className="block text-gray-600 mb-1">Card Number</label>
@@ -239,11 +218,9 @@ const Payment = () => {
           </button>
         </form>
 
-        {/* ✅ RIGHT SIDE — ORDER SUMMARY */}
+        {/* Order Summary */}
         <div className="bg-white rounded-2xl shadow-lg p-8 h-fit">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-            Order Summary
-          </h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Order Summary</h2>
 
           <div className="divide-y divide-gray-200">
             {cartItems.map((item) => (
@@ -251,9 +228,7 @@ const Payment = () => {
                 <p className="text-gray-700 font-medium">
                   {item.name} × {item.qty}
                 </p>
-                <p className="text-gray-800 font-semibold">
-                  ₹{item.price * item.qty}
-                </p>
+                <p className="text-gray-800 font-semibold">₹{item.price * item.qty}</p>
               </div>
             ))}
           </div>

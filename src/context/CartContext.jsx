@@ -1,39 +1,67 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(() => {
-    const saved = localStorage.getItem("cartItems");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [cart, setCart] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
 
+  // Listen to storage changes (other tabs)
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    const handleStorageChange = () => {
+      const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+      setUser(currentUser);
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
-  const addToCart = (item) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.id === item.id);
-      if (existing) {
-        return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
+  // Load cart whenever user changes
+  useEffect(() => {
+    if (user) {
+      const savedCart = JSON.parse(localStorage.getItem(`cart_${user.email}`)) || [];
+      setCart(savedCart);
+    } else {
+      setCart([]); // Clear instantly on logout
+    }
+  }, [user]);
+
+  // Save helper
+  const save = (updatedCart) => {
+    setCart(updatedCart);
+    if (user) localStorage.setItem(`cart_${user.email}`, JSON.stringify(updatedCart));
   };
 
-  const removeFromCart = (id) =>
-    setCartItems((prev) => prev.filter((i) => i.id !== id));
+  // Add item
+  const addToCart = (product) => {
+    const exists = cart.find((item) => item.id === product.id);
+    if (exists) {
+      const updated = cart.map((item) =>
+        item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+      );
+      return save(updated);
+    }
+    save([...cart, { ...product, qty: 1 }]);
+  };
 
-  const clearCart = () => setCartItems([]);
+  // Remove item
+  const removeFromCart = (id) => save(cart.filter((item) => item.id !== id));
 
-  const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+  // Update quantity
+  const updateQuantity = (id, qty) => {
+    if (qty <= 0) return removeFromCart(id);
+    save(cart.map((item) => (item.id === id ? { ...item, qty } : item)));
+  };
+
+  // Clear cart instantly
+  const clearCart = () => save([]);
+
+  // Count
+  const cartCount = cart.reduce((total, item) => total + item.qty, 0);
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart, cartCount }}
+      value={{ cart, cartCount, addToCart, removeFromCart, updateQuantity, clearCart, setUser }}
     >
       {children}
     </CartContext.Provider>

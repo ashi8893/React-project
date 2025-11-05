@@ -18,7 +18,7 @@
     },
     {
       "id": "3",
-      "name": "Chrome 2025 Shelby Cobra 427 S/C Diecast Car",
+      "name": "Shelby Cobra 427 S/C Diecast Car",
       "price": 449,
       "stock": 12,
       "category": "car",
@@ -26,7 +26,7 @@
     },
     {
       "id": "4",
-      "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
+      "name": "Nissan Patrol Custom Diecast Car",
       "price": 399,
       "category": "car",
       "stock": 6,
@@ -34,7 +34,7 @@
     },
     {
       "id": "5",
-      "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
+      "name": "Nissan Patrol Custom Diecast Car",
       "price": 399,
       "stock": 15,
       "category": "car",
@@ -58,14 +58,14 @@
     },
     {
       "id": "8",
-      "name": "Hot Wheels Street Power Ferenzo Large Scale Motorcycles",
+      "name": "Street Power Ferenzo Large Scale Motorcycles",
       "price": 299,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_ferenzo-1_785x.jpg?v=1675922729"
     },
     {
       "id": "9",
-      "name": "Hot Wheels Street Power Fat Ride Large Scale Motorcycles",
+      "name": "Street Power Fat Ride Large Scale Motorcycles",
       "price": 299,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_fat_ride-1_785x.jpg?v=1675922729"
@@ -213,6 +213,60 @@
       "name": "salman",
       "email": "salman@gmail.com",
       "password": "5555"
+    },
+    {
+      "id": "af72",
+      "name": "ansil",
+      "email": "ansil@gmail.com",
+      "password": "6666"
+    },
+    {
+      "id": "e999",
+      "name": "faheem",
+      "email": "faheem@gmail.com",
+      "password": "6666"
+    },
+    {
+      "id": "9480",
+      "name": "s",
+      "email": "s@gmail.com",
+      "password": "1111"
+    },
+    {
+      "id": "5760",
+      "name": "a",
+      "email": "a@gmail.com",
+      "password": "2"
+    },
+    {
+      "id": "597e",
+      "name": "nabeel paisa",
+      "email": "p@gmail.com",
+      "password": "1"
+    },
+    {
+      "id": "3870",
+      "name": "l",
+      "email": "l@gmail.com",
+      "password": "0000"
+    },
+    {
+      "id": "7f6e",
+      "name": "b",
+      "email": "b@gmail.com",
+      "password": "1"
+    },
+    {
+      "id": "63fd",
+      "name": "hello",
+      "email": "1@gmail.com",
+      "password": "1"
+    },
+    {
+      "id": "f67a",
+      "name": "m",
+      "email": "m@gmail.com",
+      "password": "m"
     }
   ],
   "orders": [
@@ -221,7 +275,7 @@
       "email": "ajmal@gmail.com",
       "orderId": "ORD58919",
       "address": "dsiojwef98h",
-      "status": "Processing",
+      "status": "Cancelled",
       "createdAt": "2025-11-04T06:29:15.812Z",
       "trackingId": "TRK636529",
       "items": [
@@ -239,7 +293,7 @@
       "phone": "dw9qih89",
       "paymentMethod": "cod",
       "totalAmount": 799,
-      "status": "Processing",
+      "status": "Cancelled",
       "createdAt": "2025-11-04T06:33:22.977Z",
       "trackingId": "TRK535573",
       "items": [
@@ -412,6 +466,253 @@
           "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
           "price": 399,
           "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762321407359",
+      "email": "ansil@gmail.com",
+      "orderId": "ORD74640",
+      "address": "wkqhasij",
+      "phone": "fghjkl",
+      "paymentMethod": "cod",
+      "totalAmount": 2397,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T05:43:27.359Z",
+      "trackingId": "TRK197632",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 3
+        }
+      ]
+    },
+    {
+      "id": "1762321453796",
+      "email": "ansil@gmail.com",
+      "orderId": "ORD86423",
+      "address": "fghjkl",
+      "phone": "sdfgh",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T05:44:13.796Z",
+      "trackingId": "TRK834408",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762321965737",
+      "email": "ansil@gmail.com",
+      "orderId": "ORD40294",
+      "address": "dfghjm",
+      "phone": "sdfghjkl",
+      "paymentMethod": "cod",
+      "totalAmount": 2397,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T05:52:45.737Z",
+      "trackingId": "TRK220297",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 3
+        }
+      ]
+    },
+    {
+      "id": "1762322206708",
+      "email": "ansil@gmail.com",
+      "orderId": "ORD75229",
+      "address": "d",
+      "phone": "bbudi",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T05:56:46.708Z",
+      "trackingId": "TRK148696",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762322426359",
+      "email": "faheem@gmail.com",
+      "orderId": "ORD77037",
+      "address": "jjj",
+      "phone": "9999999999",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Processing",
+      "createdAt": "2025-11-05T06:00:26.359Z",
+      "trackingId": "TRK372680",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762322496265",
+      "email": "faheem@gmail.com",
+      "orderId": "ORD79570",
+      "address": "dtfghj",
+      "phone": "sdfgh",
+      "paymentMethod": "cod",
+      "totalAmount": 3196,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T06:01:36.265Z",
+      "trackingId": "TRK256450",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 4
+        }
+      ]
+    },
+    {
+      "id": "1762324462835",
+      "email": "p@gmail.com",
+      "orderId": "ORD29261",
+      "address": "fgvhb",
+      "phone": "r34432",
+      "paymentMethod": "cod",
+      "totalAmount": 399,
+      "status": "Processing",
+      "createdAt": "2025-11-05T06:34:22.835Z",
+      "trackingId": "TRK687135",
+      "items": [
+        {
+          "name": "Nissan Patrol Custom Diecast Car",
+          "price": 399,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762324677733",
+      "email": "p@gmail.com",
+      "orderId": "ORD51259",
+      "address": "asdf",
+      "phone": "1234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 399,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T06:37:57.733Z",
+      "trackingId": "TRK470987",
+      "items": [
+        {
+          "name": "Nissan Patrol Custom Diecast Car",
+          "price": 399,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762326951988",
+      "email": "l@gmail.com",
+      "orderId": "ORD96868",
+      "address": "fghbjnkm",
+      "phone": "wqa",
+      "paymentMethod": "cod",
+      "totalAmount": 399,
+      "status": "Processing",
+      "createdAt": "2025-11-05T07:15:51.988Z",
+      "trackingId": "TRK357870",
+      "items": [
+        {
+          "name": "Nissan Patrol Custom Diecast Car",
+          "price": 399,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762330828453",
+      "email": "1@gmail.com",
+      "orderId": "ORD15704",
+      "address": "fghbjnkm",
+      "phone": "34567890",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T08:20:28.453Z",
+      "trackingId": "TRK309014",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762331494749",
+      "email": "ajmal@gmail.com",
+      "orderId": "ORD24646",
+      "address": "3rf",
+      "phone": "er",
+      "paymentMethod": "cod",
+      "totalAmount": 2694,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T08:31:34.749Z",
+      "trackingId": "TRK501806",
+      "items": [
+        {
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 6
+        }
+      ]
+    },
+    {
+      "id": "1762331788437",
+      "email": "ajmal@gmail.com",
+      "orderId": "ORD79999",
+      "address": "ghjn",
+      "phone": "bhjnk",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T08:36:28.437Z",
+      "trackingId": "TRK745855",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762333473001",
+      "email": "vaishakh@gmail.com",
+      "orderId": "ORD79508",
+      "address": "sdfghj",
+      "phone": "fgh",
+      "paymentMethod": "card",
+      "totalAmount": 4794,
+      "status": "Processing",
+      "createdAt": "2025-11-05T09:04:33.001Z",
+      "trackingId": "TRK994072",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 6
         }
       ]
     }

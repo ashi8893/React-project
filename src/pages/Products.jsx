@@ -3,9 +3,11 @@ import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Footer from "../components/Footer";
-import { SlArrowRight } from "react-icons/sl";
-import { SlArrowLeft } from "react-icons/sl";
+import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
+// ✅ Contexts
+import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,12 +15,20 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  const [wishlist, setWishlist] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
   const [loggedInUser, setLoggedInUser] = useState(null);
+
   const navigate = useNavigate();
-  const [lastToast, setLastToast] = useState(""); // ✅ Prevent duplicate toast
+
+  // ✅ Global cart
+  const { addToCart } = useCart();
+
+  // ✅ Global wishlist
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+
+  // ✅ Check if in wishlist
+  const isInWishlist = (id) => wishlist.some((item) => item.id === id);
 
   // ✅ Fetch products
   useEffect(() => {
@@ -37,27 +47,20 @@ const Products = () => {
     setLoggedInUser(user);
   }, []);
 
-  // ✅ Load wishlist for this user
-  useEffect(() => {
-    if (loggedInUser) {
-      const allWishlists =
-        JSON.parse(localStorage.getItem("wishlistData")) || {};
-      setWishlist(allWishlists[loggedInUser.email] || []);
+  // ✅ Add to cart
+  const addToMyCars = (product) => {
+    if (!loggedInUser) {
+      toast.warning("Please log in before adding items to your cart.", { autoClose: 1000 });
+      setTimeout(() => navigate("/login"), 1000);
+      return;
     }
-  }, [loggedInUser]);
 
-  // ✅ Save wishlist for this user
-  useEffect(() => {
-    if (loggedInUser) {
-      const allWishlists =
-        JSON.parse(localStorage.getItem("wishlistData")) || {};
-      allWishlists[loggedInUser.email] = wishlist;
-      localStorage.setItem("wishlistData", JSON.stringify(allWishlists));
-      window.dispatchEvent(new Event("wishlistCountUpdated")); // update Navbar instantly
-    }
-  }, [wishlist, loggedInUser]);
+    addToCart(product);
+    toast.success(`${product.name} added to your cart!`, { autoClose: 1000 });
+    navigate("/cart");
+  };
 
-  // ✅ Filter logic
+  // ✅ Filtering logic
   useEffect(() => {
     let filtered = [...products];
 
@@ -86,80 +89,15 @@ const Products = () => {
     setCurrentPage(1);
   }, [products, selectedCategory, priceRange, searchTerm]);
 
-  // ✅ Add or remove wishlist (fixed double toast + login redirect)
-  const toggleWishlist = (product) => {
-    if (!loggedInUser) {
-      if (lastToast !== "login") {
-        toast.warning("Please log in to add items to your wishlist.", { autoClose: 1000 });
-        setLastToast("login");
-        setTimeout(() => {
-          navigate("/login");
-          setLastToast(""); // reset
-        }, 1200);
-      }
-      return;
-    }
-
-    setWishlist((prev) => {
-      const exists = prev.some((item) => item.id === product.id);
-      if (exists) {
-        if (lastToast !== "removed") {
-          // toast.info(`${product.name} removed from wishlist.`, { autoClose: 1000 });
-          setLastToast("removed");
-          setTimeout(() => setLastToast(""), 1000);
-        }
-        return prev.filter((item) => item.id !== product.id);
-      } else {
-        // if (lastToast !== "added") {
-        //    toast.success(`${product.name} added to wishlist!`, { autoClose: 1000 });
-        //   // setLastToast("added");
-        //   setTimeout(() => setLastToast(""), 1000);
-        // }
-        return [
-          ...prev,
-          { ...product, addedDate: new Date().toISOString(), type: "wishlist" },
-        ];
-      }
-    });
-  };
-
-  // ✅ Add to cart (unchanged, uses toast)
-  const addToMyCars = (product) => {
-    if (!loggedInUser) {
-      toast.warning("Please log in before adding items to your cart.", { autoClose: 1000 });
-      setTimeout(() => navigate("/login"), 1000);
-      return;
-    }
-
-    const savedCars = JSON.parse(localStorage.getItem("cart")) || [];
-    const alreadyInCart = savedCars.some((item) => item.id === product.id);
-
-    if (alreadyInCart) {
-      toast.info(`${product.name} is already in your cart!`, { autoClose: 1000 });
-      navigate("/cart");
-      return;
-    }
-
-    const updatedCart = [
-      ...savedCars,
-      { ...product, addedDate: new Date().toISOString() },
-    ];
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-    toast.success(`${product.name} added to your cart!`, { autoClose: 1000 });
-    navigate("/cart");
-  };
-
-  // ✅ Pagination logic
+  // ✅ Pagination
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const paginate = (pageNum) => setCurrentPage(pageNum);
-  const nextPage = () =>
-    currentPage < totalPages && setCurrentPage((p) => p + 1);
-  const prevPage = () => currentPage > 1 && setCurrentPage((p) => p - 1);
+  const paginate = (num) => setCurrentPage(num);
+  const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
+  const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
   const getPageNumbers = () => {
     const max = 5;
@@ -170,34 +108,15 @@ const Products = () => {
     } else if (currentPage <= 3) {
       pages.push(1, 2, 3, 4, "...", totalPages);
     } else if (currentPage >= totalPages - 2) {
-      pages.push(
-        1,
-        "...",
-        totalPages - 3,
-        totalPages - 2,
-        totalPages - 1,
-        totalPages
-      );
+      pages.push(1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
     } else {
-      pages.push(
-        1,
-        "...",
-        currentPage - 1,
-        currentPage,
-        currentPage + 1,
-        "...",
-        totalPages
-      );
+      pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
     }
+
     return pages;
   };
 
-  const categories = [
-    "all",
-    ...new Set(products.map((p) => p.category).filter(Boolean)),
-  ];
-
-  const isInWishlist = (id) => wishlist.some((i) => i.id === id);
+  const categories = ["all", ...new Set(products.map((p) => p.category).filter(Boolean))];
 
   return (
     <>
@@ -298,12 +217,18 @@ const Products = () => {
                     </div>
 
                     <div className="flex gap-2">
+                      {/* ✅ FIXED — Wishlist Button (add/remove instantly) */}
                       <button
-                        onClick={() => toggleWishlist(p)}
+                        onClick={() => {
+                          if (!loggedInUser) {
+                            toast.warning("Please log in to manage wishlist.");
+                            return;
+                          }
+                          liked
+                            ? removeFromWishlist(p.id)
+                            : addToWishlist(p);
+                        }}
                         className="p-2 transition"
-                        title={
-                          liked ? "Remove from Wishlist" : "Add to Wishlist"
-                        }
                       >
                         <FaHeart
                           className={`text-2xl ${
@@ -314,6 +239,7 @@ const Products = () => {
                         />
                       </button>
 
+                      {/* Add to Cart */}
                       <button
                         onClick={() =>
                           p.stock > 0
@@ -356,7 +282,6 @@ const Products = () => {
               }`}
             >
               <SlArrowLeft />
-
             </button>
 
             {getPageNumbers().map((num, i) => (
@@ -397,8 +322,3 @@ const Products = () => {
 };
 
 export default Products;
-
-
-
-
-

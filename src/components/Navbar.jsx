@@ -3,7 +3,6 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 
-// ================== ICONS ==================
 const HeartIcon = ({ count }) => (
   <div className="relative">
     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +78,6 @@ const CloseIcon = () => (
   </svg>
 );
 
-// ================== NAVBAR COMPONENT ==================
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -161,9 +159,12 @@ const Navbar = () => {
               <HeartIcon count={wishlistCount} />
             </Link>
 
-            <Link to="/account" className="hover:text-orange-700">
-              <UserIcon />
-            </Link>
+            {/* Hide User Icon when logged in, show when not logged in */}
+            {!user && (
+              <Link to="/account" className="hover:text-orange-700">
+                <UserIcon />
+              </Link>
+            )}
 
             <Link to="/cart" className="hover:text-orange-700">
               <CartIcon count={cartCount} />
@@ -221,7 +222,12 @@ const Navbar = () => {
             <Link to="/About" onClick={() => setIsMenuOpen(false)}>About</Link>
             <Link to="/Others" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <Link to="/wishlist" onClick={() => setIsMenuOpen(false)}>Wishlist</Link>
-            <Link to="/account" onClick={() => setIsMenuOpen(false)}>Account</Link>
+            
+            {/* Hide Account link in mobile menu when logged in */}
+            {!user && (
+              <Link to="/account" onClick={() => setIsMenuOpen(false)}>Account</Link>
+            )}
+            
             <Link to="/orders" onClick={() => setIsMenuOpen(false)}>Orders</Link>
 
             {user ? (
