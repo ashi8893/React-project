@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { toast } from "react-toastify";
 
 const HeartIcon = ({ count }) => (
   <div className="relative">
@@ -78,6 +79,47 @@ const CloseIcon = () => (
   </svg>
 );
 
+// Protected Link Component for Desktop
+const ProtectedLink = ({ to, children, user, className = "", iconName = "" }) => {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    if (!user) {
+      e.preventDefault();
+      toast.info(`Please login to access ${iconName}`);
+      navigate("/login");
+    }
+  };
+
+  return (
+    <Link to={user ? to : "#"} onClick={handleClick} className={className}>
+      {children}
+    </Link>
+  );
+};
+
+// Protected Button Component for Mobile
+const ProtectedButton = ({ to, children, user, onClick, className = "", iconName = "" }) => {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    if (!user) {
+      e.preventDefault();
+      toast.info(`Please login to access ${iconName}`);
+      navigate("/login");
+      if (onClick) onClick();
+    } else {
+      if (onClick) onClick();
+    }
+  };
+
+  return (
+    <button onClick={handleClick} className={className}>
+      {children}
+    </button>
+  );
+};
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -97,6 +139,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
     setUser(null);
+    toast.success("Logged out successfully!");
     navigate("/login");
   };
 
@@ -155,9 +198,15 @@ const Navbar = () => {
 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-5 ml-20">
-            <Link to="/wishlist" className="hover:text-orange-700">
+            {/* Protected Wishlist Link */}
+            <ProtectedLink 
+              to="/wishlist" 
+              user={user} 
+              className="hover:text-orange-700"
+              iconName="Wishlist"
+            >
               <HeartIcon count={wishlistCount} />
-            </Link>
+            </ProtectedLink>
 
             {/* Hide User Icon when logged in, show when not logged in */}
             {!user && (
@@ -166,14 +215,25 @@ const Navbar = () => {
               </Link>
             )}
 
-            <Link to="/cart" className="hover:text-orange-700">
+            {/* Protected Cart Link */}
+            <ProtectedLink 
+              to="/cart" 
+              user={user} 
+              className="hover:text-orange-700"
+              iconName="Cart"
+            >
               <CartIcon count={cartCount} />
-            </Link>
+            </ProtectedLink>
 
-            {/* Orders */}
-            <Link to="/Shipping" className="hover:text-orange-700">
+            {/* Protected Orders Link */}
+            <ProtectedLink 
+              to="/Shipping" 
+              user={user} 
+              className="hover:text-orange-700"
+              iconName="Orders"
+            >
               <TruckIcon />
-            </Link>
+            </ProtectedLink>
 
             {/* User Greeting */}
             {user ? (
@@ -183,7 +243,7 @@ const Navbar = () => {
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="mr-1 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600"
+                  className="mr-1 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition duration-300"
                 >
                   Logout
                 </button>
@@ -191,7 +251,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="ml-2 px-3 py-1 bg-green-700 text-white text-sm rounded hover:bg-green-900"
+                className="ml-2 px-3 py-1 bg-green-700 text-white text-sm rounded hover:bg-green-900 transition duration-300"
               >
                 Login
               </Link>
@@ -200,12 +260,17 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
-            <Link to="/cart">
+            {/* Protected Cart Link for Mobile */}
+            <ProtectedLink 
+              to="/cart" 
+              user={user}
+              iconName="Cart"
+            >
               <CartIcon count={cartCount} />
-            </Link>
+            </ProtectedLink>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-700 hover:text-indigo-600 rounded-full"
+              className="p-2 text-gray-700 hover:text-indigo-600 rounded-full transition duration-300"
             >
               {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
@@ -217,22 +282,71 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-gray-50 border-t border-gray-200">
           <div className="px-4 py-3 space-y-1">
-            <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
-            <Link to="/Products" onClick={() => setIsMenuOpen(false)}>Products</Link>
-            <Link to="/About" onClick={() => setIsMenuOpen(false)}>About</Link>
-            <Link to="/Others" onClick={() => setIsMenuOpen(false)}>Contact</Link>
-            <Link to="/wishlist" onClick={() => setIsMenuOpen(false)}>Wishlist</Link>
+            <Link 
+              to="/" 
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+            >
+              Home
+            </Link>
+            <Link 
+              to="/Products" 
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+            >
+              Products
+            </Link>
+            <Link 
+              to="/About" 
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+            >
+              About
+            </Link>
+            <Link 
+              to="/Others" 
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+            >
+              Contact
+            </Link>
+            
+            {/* Protected Wishlist for Mobile */}
+            <ProtectedButton 
+              to="/wishlist" 
+              user={user}
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+              iconName="Wishlist"
+            >
+              Wishlist
+            </ProtectedButton>
             
             {/* Hide Account link in mobile menu when logged in */}
             {!user && (
-              <Link to="/account" onClick={() => setIsMenuOpen(false)}>Account</Link>
+              <Link 
+                to="/account" 
+                onClick={() => setIsMenuOpen(false)}
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+              >
+                Account
+              </Link>
             )}
             
-            <Link to="/orders" onClick={() => setIsMenuOpen(false)}>Orders</Link>
+            {/* Protected Orders for Mobile */}
+            <ProtectedButton 
+              to="/orders" 
+              user={user}
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
+              iconName="Orders"
+            >
+              Orders
+            </ProtectedButton>
 
             {user ? (
               <>
-                <p className="px-3 text-gray-700">
+                <p className="px-3 text-gray-700 py-2">
                   Hi, <span className="font-semibold">{user.name}</span>
                 </p>
                 <button
@@ -240,7 +354,7 @@ const Navbar = () => {
                     handleLogout();
                     setIsMenuOpen(false);
                   }}
-                  className="w-full text-left px-3 py-2 text-gray-700 hover:bg-red-500 hover:text-white rounded-md"
+                  className="w-full text-left px-3 py-2 text-gray-700 hover:bg-red-500 hover:text-white rounded-md transition duration-300"
                 >
                   Logout
                 </button>
@@ -249,7 +363,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 onClick={() => setIsMenuOpen(false)}
-                className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-blue-600 hover:text-white rounded-md"
+                className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-blue-600 hover:text-white rounded-md transition duration-300"
               >
                 Login
               </Link>

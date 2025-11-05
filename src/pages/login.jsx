@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">
+        <h2 className="text-3xl font-semibold text-center text-orange-600 mb-6">
           Login
         </h2>
 
@@ -88,7 +88,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-all"
+            className="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-all"
           >
             Login
           </button>

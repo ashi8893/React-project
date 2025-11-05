@@ -89,7 +89,7 @@
     {
       "id": "12",
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD73)",
-      "price": 499,
+      "price": 1199,
       "stock": 0,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61XwvAU6LhL_785x.jpg?v=1757507094"
@@ -105,7 +105,7 @@
     {
       "id": "14",
       "name": "Demolition Doubles 2 Pack Collection, DC Batman Vs Batman Classic TV Series",
-      "price": 349,
+      "price": 1200,
       "stock": 19,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61ONc6mQZQL._SL1000.jpg?v=1757071557"
@@ -267,6 +267,24 @@
       "name": "m",
       "email": "m@gmail.com",
       "password": "m"
+    },
+    {
+      "id": "0ddb",
+      "name": "awiushjbn",
+      "email": "ruehjbdn@gmail.com",
+      "password": "Ashfak@123"
+    },
+    {
+      "id": "acca",
+      "name": "saras",
+      "email": "saras@gmail.com",
+      "password": "Saras@123"
+    },
+    {
+      "id": "a2f9",
+      "name": "naheel",
+      "email": "naheeel@gmail.com",
+      "password": "Naheel@123"
     }
   ],
   "orders": [
@@ -713,6 +731,97 @@
           "name": "Sports Car with Full Metal Body Construction",
           "price": 799,
           "qty": 6
+        }
+      ]
+    },
+    {
+      "id": "1762337315596",
+      "email": "saras@gmail.com",
+      "orderId": "ORD56299",
+      "address": "gh",
+      "phone": "jhgbv",
+      "paymentMethod": "cod",
+      "totalAmount": 1598,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T10:08:35.596Z",
+      "trackingId": "TRK75914",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 2
+        }
+      ]
+    },
+    {
+      "id": "1762337760805",
+      "email": "saras@gmail.com",
+      "orderId": "ORD8427",
+      "address": "qwes",
+      "phone": "ewe",
+      "paymentMethod": "cod",
+      "totalAmount": 1647,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T10:16:00.805Z",
+      "trackingId": "TRK71090",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        },
+        {
+          "name": "Nissan Patrol Custom Diecast Car",
+          "price": 399,
+          "qty": 1
+        },
+        {
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762338324696",
+      "email": "naheeel@gmail.com",
+      "orderId": "ORD77448",
+      "address": "hello house",
+      "phone": "4567890-432",
+      "paymentMethod": "cod",
+      "totalAmount": 1498,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T10:25:24.696Z",
+      "trackingId": "TRK68675",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 699,
+          "qty": 1
+        },
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762338344110",
+      "email": "naheeel@gmail.com",
+      "orderId": "ORD91431",
+      "address": "wds",
+      "phone": "1234567",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T10:25:44.110Z",
+      "trackingId": "TRK846903",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1
         }
       ]
     }

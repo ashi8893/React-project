@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useCart } from "../context/CartContext";
 
 const Payment = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -12,6 +13,7 @@ const Payment = () => {
   const [upiId, setUpiId] = useState("");
 
   const navigate = useNavigate();
+  const { clearCart } = useCart(); // ✅ use clearCart from context
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -30,7 +32,8 @@ const Payment = () => {
       const singleCar = JSON.parse(localStorage.getItem("selectedCar"));
       if (singleCar) items = [{ ...singleCar, qty: singleCar.qty || 1 }];
     } else {
-      items = JSON.parse(localStorage.getItem("cart")) || [];
+      const savedCart = JSON.parse(localStorage.getItem(`cart_${user.email}`)) || [];
+      items = savedCart;
     }
 
     if (items.length === 0) {
@@ -42,7 +45,10 @@ const Payment = () => {
     setCartItems(items);
   }, [navigate]);
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * (item.qty || 1), 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * (item.qty || 1),
+    0
+  );
 
   const handlePayment = async (e) => {
     e.preventDefault();
@@ -91,8 +97,8 @@ const Payment = () => {
 
       toast.success("🎉 Payment Successful! Order placed successfully.");
 
-      // Clear cart & single-buy selection
-      localStorage.removeItem("cart");
+      // ✅ Clear cart & single-buy selection
+      clearCart(); // clears context + localStorage
       localStorage.removeItem("selectedCar");
 
       setTimeout(() => navigate("/shipping"), 1500);
@@ -110,8 +116,13 @@ const Payment = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Payment Form */}
-        <form onSubmit={handlePayment} className="bg-white rounded-2xl shadow-lg p-8 space-y-6">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Billing Details</h2>
+        <form
+          onSubmit={handlePayment}
+          className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
+        >
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            Billing Details
+          </h2>
 
           <div>
             <label className="block text-gray-600 mb-1">Full Name</label>
