@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import Footer from "../components/Footer";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
-// ✅ Contexts
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 
@@ -21,16 +20,12 @@ const Products = () => {
 
   const navigate = useNavigate();
 
-  // ✅ Global cart
   const { addToCart } = useCart();
 
-  // ✅ Global wishlist
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
-  // ✅ Check if in wishlist
   const isInWishlist = (id) => wishlist.some((item) => item.id === id);
 
-  // ✅ Fetch products
   useEffect(() => {
     fetch("http://localhost:3001/products")
       .then((response) => response.json())
@@ -41,26 +36,22 @@ const Products = () => {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  // ✅ Load logged-in user
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     setLoggedInUser(user);
   }, []);
 
-  // ✅ Add to cart
   const addToMyCars = (product) => {
     if (!loggedInUser) {
       toast.warning("Please log in before adding items to your cart.", { autoClose: 1000 });
-      setTimeout(() => navigate("/login"), 1000);
+      setTimeout(() => navigate("/login"));
       return;
     }
 
     addToCart(product);
     toast.success(`${product.name} added to your cart!`, { autoClose: 1000 });
-    navigate("/cart");
   };
 
-  // ✅ Filtering logic
   useEffect(() => {
     let filtered = [...products];
 
@@ -79,17 +70,10 @@ const Products = () => {
       });
     }
 
-    if (searchTerm.trim() !== "") {
-      filtered = filtered.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
     setFilteredProducts(filtered);
     setCurrentPage(1);
   }, [products, selectedCategory, priceRange, searchTerm]);
 
-  // ✅ Pagination
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
@@ -125,7 +109,6 @@ const Products = () => {
           Hot Wheels
         </h1>
 
-        {/* Filters */}
         <div className="mb-8 bg-gray-100 p-6 rounded-lg">
           <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
@@ -178,7 +161,6 @@ const Products = () => {
           </div>
         </div>
 
-        {/* Products Grid */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-12">
           {currentProducts.length > 0 ? (
             currentProducts.map((p) => {
@@ -217,11 +199,11 @@ const Products = () => {
                     </div>
 
                     <div className="flex gap-2">
-                      {/* ✅ FIXED — Wishlist Button (add/remove instantly) */}
                       <button
                         onClick={() => {
                           if (!loggedInUser) {
-                            toast.warning("Please log in to manage wishlist.");
+                            toast.warning("Please log in to Add wishlist.");
+                            navigate('/login');
                             return;
                           }
                           liked
@@ -239,7 +221,6 @@ const Products = () => {
                         />
                       </button>
 
-                      {/* Add to Cart */}
                       <button
                         onClick={() =>
                           p.stock > 0
@@ -269,7 +250,6 @@ const Products = () => {
           )}
         </div>
 
-        {/* Pagination */}
         {filteredProducts.length > productsPerPage && (
           <div className="flex justify-center items-center space-x-2 mb-8">
             <button

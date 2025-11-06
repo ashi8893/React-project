@@ -45,7 +45,6 @@ const Shipping = () => {
     }
   };
 
-  // ✅ Cancel order function
   const handleCancelOrder = async (orderId) => {
     if (!window.confirm("Are you sure you want to cancel this order?")) return;
 
@@ -63,23 +62,14 @@ const Shipping = () => {
           order.id === orderId ? { ...order, status: "Cancelled" } : order
         )
       );
-      alert("❌ Order has been cancelled successfully!");
+      alert("Order has been cancelled successfully!");
     } catch (err) {
       console.error(err);
       alert("Failed to cancel the order. Try again later.");
     }
   };
 
-  // ✅ Safe Total Spent (no NaN)
-  const totalSpent = orders.reduce((orderSum, order) => {
-    const orderTotal = order.items?.reduce(
-      (_sum, item) =>
-        _sum +
-        (Number(item.price) || 0) * (Number(item.qty) || 1),
-      0
-    );
-    return orderSum + (orderTotal || 0);
-  }, 0);
+ 
 
   return (
     <>
@@ -117,7 +107,6 @@ const Shipping = () => {
                   key={order.id}
                   className="bg-white border border-gray-200 shadow-lg rounded-2xl p-6 hover:shadow-xl transition-all duration-300"
                 >
-                  {/* Header */}
                   <div className="flex flex-col md:flex-row justify-between border-b pb-4 mb-4">
                     <div>
                       <h3 className="text-lg font-semibold text-gray-800">
@@ -144,7 +133,6 @@ const Shipping = () => {
                     </span>
                   </div>
 
-                  {/* Items */}
                   <div className="space-y-3">
                     {order.items?.map((item, i) => (
                       <div
@@ -161,7 +149,6 @@ const Shipping = () => {
                     ))}
                   </div>
 
-                  {/* Total */}
                   <div className="mt-4 flex justify-between border-t pt-3 text-gray-800 font-semibold">
                     <span>Total Amount</span>
                     <span>
@@ -175,7 +162,6 @@ const Shipping = () => {
                     </span>
                   </div>
 
-                  {/* Tracking Info */}
                   <div className="mt-4 text-sm text-gray-600 space-y-1">
                     <p>
                       <strong>Tracking ID:</strong>{" "}
@@ -186,7 +172,6 @@ const Shipping = () => {
                     </p>
                   </div>
 
-                  {/* Action */}
                   <div className="mt-6 flex justify-end gap-3">
                     {order.status !== "Cancelled" &&
                       order.status !== "Delivered" && (
@@ -202,7 +187,6 @@ const Shipping = () => {
               ))}
             </div>
 
-            {/* ✅ Total Spent Section */}
            
           </>
         )}

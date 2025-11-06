@@ -27,7 +27,7 @@ const Footer = () => {
               <div>
                 <p className="font-semibold text-gray-300">Email</p>
                 <Link to="mailto:hello@trevora.com" className="hover:text-indigo-400 transition">
-                  hello@flywheels.com
+                  hello@Hotwheels.com
                 </Link>
               </div>
 
@@ -48,7 +48,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 my-8 md:my-10" />
 
         <div className="text-center text-sm text-gray-500">
-          &copy; 2025/26 fly Wheels. All Rights Reserved.
+          &copy; 2025/26 Hot Wheels. All Rights Reserved.
         </div>
       </div>
     </footer>

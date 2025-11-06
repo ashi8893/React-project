@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Benz CLK 63 AMG Black Series",
       "price": 599,
-      "stock": 0,
+      "stock": 15,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/71eMXisQ-GL._SL1000.jpg?v=1756469422"
     },
@@ -59,14 +59,16 @@
     {
       "id": "8",
       "name": "Street Power Ferenzo Large Scale Motorcycles",
-      "price": 299,
+      "price": 599,
+      "stock": 5,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_ferenzo-1_785x.jpg?v=1675922729"
     },
     {
       "id": "9",
       "name": "Street Power Fat Ride Large Scale Motorcycles",
-      "price": 299,
+      "price": 399,
+      "stock": 3,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_fat_ride-1_785x.jpg?v=1675922729"
     },
@@ -81,7 +83,7 @@
     {
       "id": "11",
       "name": "Hot Wheels Street Power Turbo Bike",
-      "price": 299,
+      "price": 499,
       "stock": 33,
       "category": "motorcycle",
       "image": "https://www.funcorp.in/cdn/shop/products/hot_wheels_street_power_turbo_bike-1_785x.jpg?v=1675922739"
@@ -89,7 +91,7 @@
     {
       "id": "12",
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD73)",
-      "price": 1199,
+      "price": 1099,
       "stock": 0,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61XwvAU6LhL_785x.jpg?v=1757507094"
@@ -105,7 +107,7 @@
     {
       "id": "14",
       "name": "Demolition Doubles 2 Pack Collection, DC Batman Vs Batman Classic TV Series",
-      "price": 1200,
+      "price": 1199,
       "stock": 19,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61ONc6mQZQL._SL1000.jpg?v=1757071557"
@@ -285,6 +287,30 @@
       "name": "naheel",
       "email": "naheeel@gmail.com",
       "password": "Naheel@123"
+    },
+    {
+      "id": "290d",
+      "name": "anzil",
+      "email": "anzil@gmail.com",
+      "password": "Anzil@123"
+    },
+    {
+      "id": "8832",
+      "name": "mishal",
+      "email": "mishal@gmail.com",
+      "password": "Mishal@123"
+    },
+    {
+      "id": "0a8f",
+      "name": "a",
+      "email": "ashfak@gmail.com",
+      "password": "Ashfak@123"
+    },
+    {
+      "id": "cbad",
+      "name": "Mohammed ihsan",
+      "email": "ihsan@gmail.com",
+      "password": "Ihsan@123"
     }
   ],
   "orders": [
@@ -822,6 +848,93 @@
           "name": "Sports Car with Full Metal Body Construction",
           "price": 799,
           "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762358710901",
+      "email": "a@gmail.com",
+      "orderId": "ORD19266",
+      "address": "wihuyg",
+      "phone": "r32yguhwjes",
+      "paymentMethod": "cod",
+      "totalAmount": 3544,
+      "status": "Cancelled",
+      "createdAt": "2025-11-05T16:05:10.901Z",
+      "trackingId": "TRK53320",
+      "items": [
+        {
+          "name": "Nissan Patrol Custom Diecast Car",
+          "price": 399,
+          "qty": 1
+        },
+        {
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 1
+        },
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 699,
+          "qty": 1
+        },
+        {
+          "name": "Nissan Patrol Custom Diecast Car",
+          "price": 399,
+          "qty": 1
+        },
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 2
+        }
+      ]
+    },
+    {
+      "id": "1762410547559",
+      "email": "ashfak@gmail.com",
+      "orderId": "ORD63515",
+      "address": "hello house",
+      "phone": "1234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 2646,
+      "status": "Cancelled",
+      "createdAt": "2025-11-06T06:29:07.559Z",
+      "trackingId": "TRK51160",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 2
+        },
+        {
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 1
+        },
+        {
+          "name": "Benz CLK 63 AMG Black Series",
+          "price": 599,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1762410601369",
+      "email": "ashfak@gmail.com",
+      "orderId": "ORD4324",
+      "address": "sax",
+      "phone": "5678",
+      "paymentMethod": "cod",
+      "totalAmount": 2397,
+      "status": "Cancelled",
+      "createdAt": "2025-11-06T06:30:01.369Z",
+      "trackingId": "TRK832749",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 3
         }
       ]
     }

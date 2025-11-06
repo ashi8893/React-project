@@ -16,6 +16,7 @@ import { ToastContainer } from "react-toastify";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import Shipping from "./pages/Shipping";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -24,25 +25,65 @@ function App() {
         <Router>
           <div className="App">
             <Navbar />
+
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products category="Products" />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/shipping" element={<Shipping />} />
-              <Route path="/payment" element={<Payment />} />
               <Route path="/about" element={<About />} />
               <Route path="/others" element={<Others />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
               <Route path="/search" element={<SearchResults />} />
+
+              <Route
+                path="/wishlist"
+                element={
+                  <ProtectedRoute>
+                    <Wishlist />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/shipping"
+                element={
+                  <ProtectedRoute>
+                    <Shipping />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/payment"
+                element={
+                  <ProtectedRoute>
+                    <Payment />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <Account />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </div>
 
-          {/* ✅ ToastContainer (Only one, fast & centered) */}
           <ToastContainer
             position="top-right"
-            autoClose={1000}        // ⏱️ Toast closes in 1 second
+            autoClose={1000}
             hideProgressBar={false}
             closeOnClick
             pauseOnHover

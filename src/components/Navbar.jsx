@@ -79,7 +79,6 @@ const CloseIcon = () => (
   </svg>
 );
 
-// Protected Link Component for Desktop
 const ProtectedLink = ({ to, children, user, className = "", iconName = "" }) => {
   const navigate = useNavigate();
 
@@ -98,7 +97,6 @@ const ProtectedLink = ({ to, children, user, className = "", iconName = "" }) =>
   );
 };
 
-// Protected Button Component for Mobile
 const ProtectedButton = ({ to, children, user, onClick, className = "", iconName = "" }) => {
   const navigate = useNavigate();
 
@@ -128,7 +126,6 @@ const Navbar = () => {
   const { cartCount } = useCart();
   const { wishlistCount } = useWishlist();
 
-  // ✅ AUTO DETECT ACTIVE MENU BASED ON URL
   const activeMenu = location.pathname;
 
   useEffect(() => {
@@ -136,19 +133,26 @@ const Navbar = () => {
     setUser(loggedInUser);
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("loggedInUser");
-    setUser(null);
-    toast.success("Logged out successfully!");
-    navigate("/login");
-  };
+  const { clearCart } = useCart();
+const { clearWishlist } = useWishlist();
+
+const handleLogout = () => {
+  clearCart();  
+  clearWishlist();   
+
+  localStorage.removeItem("loggedInUser");
+  setUser(null);
+
+  toast.success("Logged out successfully!");
+  navigate("/login");
+};
+
 
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* Logo */}
           <Link
             to="/"
             className="text-2xl font-extrabold text-orange-700 hover:text-orange-900 transition duration-300"
@@ -156,7 +160,6 @@ const Navbar = () => {
             Hot Wheels
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
             
             <Link
@@ -196,9 +199,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-5 ml-20">
-            {/* Protected Wishlist Link */}
             <ProtectedLink 
               to="/wishlist" 
               user={user} 
@@ -208,14 +209,12 @@ const Navbar = () => {
               <HeartIcon count={wishlistCount} />
             </ProtectedLink>
 
-            {/* Hide User Icon when logged in, show when not logged in */}
             {!user && (
               <Link to="/account" className="hover:text-orange-700">
                 <UserIcon />
               </Link>
             )}
 
-            {/* Protected Cart Link */}
             <ProtectedLink 
               to="/cart" 
               user={user} 
@@ -225,7 +224,6 @@ const Navbar = () => {
               <CartIcon count={cartCount} />
             </ProtectedLink>
 
-            {/* Protected Orders Link */}
             <ProtectedLink 
               to="/Shipping" 
               user={user} 
@@ -235,7 +233,6 @@ const Navbar = () => {
               <TruckIcon />
             </ProtectedLink>
 
-            {/* User Greeting */}
             {user ? (
               <div className="flex items-center space-x-8">
                 <span className="text-gray-700 text-sm">
@@ -258,9 +255,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
-            {/* Protected Cart Link for Mobile */}
             <ProtectedLink 
               to="/cart" 
               user={user}
@@ -278,7 +273,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-50 border-t border-gray-200">
           <div className="px-4 py-3 space-y-1">
@@ -311,7 +305,6 @@ const Navbar = () => {
               Contact
             </Link>
             
-            {/* Protected Wishlist for Mobile */}
             <ProtectedButton 
               to="/wishlist" 
               user={user}
@@ -322,7 +315,6 @@ const Navbar = () => {
               Wishlist
             </ProtectedButton>
             
-            {/* Hide Account link in mobile menu when logged in */}
             {!user && (
               <Link 
                 to="/account" 
@@ -333,7 +325,6 @@ const Navbar = () => {
               </Link>
             )}
             
-            {/* Protected Orders for Mobile */}
             <ProtectedButton 
               to="/orders" 
               user={user}
@@ -353,6 +344,7 @@ const Navbar = () => {
                   onClick={() => {
                     handleLogout();
                     setIsMenuOpen(false);
+                    window.location.reload();
                   }}
                   className="w-full text-left px-3 py-2 text-gray-700 hover:bg-red-500 hover:text-white rounded-md transition duration-300"
                 >

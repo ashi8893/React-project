@@ -1,4 +1,3 @@
-// src/pages/Wishlist.js
 import React from "react";
 import { FaHeart, FaTrash } from "react-icons/fa";
 import { useWishlist } from "../context/WishlistContext";
@@ -8,7 +7,6 @@ const Wishlist = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
 
-  // ✅ If wishlist is empty
   if (wishlist.length === 0) {
     return (
       <div className="text-center py-16">
@@ -29,7 +27,6 @@ const Wishlist = () => {
     );
   }
 
-  // ✅ Total Value
   const totalValue = wishlist.reduce((sum, item) => sum + (item.price || 0), 0);
 
   return (
@@ -40,7 +37,6 @@ const Wishlist = () => {
         </span>
       </h1>
 
-      {/* Summary */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8 max-w-2xl mx-auto">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
     <div className="flex flex-col items-center justify-center">
@@ -50,13 +46,12 @@ const Wishlist = () => {
 
     <div className="flex flex-col items-center justify-center">
       <p className="text-2xl font-bold text-green-600">₹{totalValue}</p>
-      <p className="text-gray-600">Total Value</p>
+      <p className="text-gray-600">Total Price</p>
     </div>
   </div>
 </div>
 
 
-      {/* Wishlist Items */}
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {wishlist.map((product) => (
           <div
@@ -83,7 +78,6 @@ const Wishlist = () => {
               </div>
 
               <div className="flex gap-2 mt-4">
-                {/* ✅ Remove from wishlist */}
                 <button
                   onClick={() => removeFromWishlist(product.id)}
                   className="flex-1 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-300 flex items-center justify-center gap-2"
@@ -92,11 +86,10 @@ const Wishlist = () => {
                   Remove
                 </button>
 
-                {/* ✅ Add to cart AND remove from wishlist */}
                 <button
                   onClick={() => {
                     addToCart(product);
-                    removeFromWishlist(product.id); // ✅ FIXED — removes instantly
+                    removeFromWishlist(product.id);
                   }}
                   className="flex-1 bg-[#097203] text-white py-2 rounded-lg hover:bg-green-900 transition duration-300"
                 >

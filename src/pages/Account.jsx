@@ -11,7 +11,6 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  // Password validation function
   const validatePassword = (password) => {
     const errors = [];
     
@@ -43,21 +42,18 @@ const Register = () => {
     setError("");
     setSuccess("");
 
-    // ✅ Basic validation
     if (!name || !email || !password || !confirmPassword) {
       setError("All fields are required");
       toast.error("All fields are required");
       return;
     }
 
-    // ✅ Check password match
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       toast.error("Passwords do not match");
       return;
     }
 
-    // ✅ Password strength validation
     const passwordValidationErrors = validatePassword(password);
     if (passwordValidationErrors.length > 0) {
       const errorMessage = "Password must contain: 8+ characters, uppercase letter, lowercase letter, number, and special character";
@@ -77,7 +73,6 @@ const Register = () => {
         return;
       }
 
-      // ✅ Removed address from newUser
       const newUser = { name, email, password };
 
       await fetch("http://localhost:3001/users", {
@@ -88,7 +83,7 @@ const Register = () => {
 
       setSuccess("Registration successful! Redirecting to login...");
       toast.success("Registration successful!");
-      setTimeout(() => navigate("/login"), 1500);
+      setTimeout(() => navigate("/login"), 1000);
     } catch (err) {
       console.error(err);
       setError("Error connecting to server");

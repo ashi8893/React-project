@@ -1,11 +1,13 @@
 import React from "react";
 import { FaCarSide, FaShippingFast, FaTools, FaSmile } from "react-icons/fa";
+import Footer from "../components/Footer";
 
 const About = () => {
   return (
+    <>
     <div className="bg-gray-50 min-h-screen pt-10 pb-16 font-sans">
 
-      {/* Header */}
+     
       <div className="text-center max-w-3xl mx-auto px-4">
         <h1 className="text-4xl font-extrabold text-orange-700 mb-4">
           About Hot Wheels Store
@@ -16,10 +18,8 @@ const About = () => {
         </p>
       </div>
 
-      {/* Features */}
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12 px-6">
         
-        {/* Feature Card */}
         <div className="bg-white shadow-lg p-6 rounded-2xl hover:shadow-xl transition">
           <FaCarSide className="text-orange-700 w-10 h-10 mb-4" />
           <h3 className="font-bold text-xl text-gray-800 mb-2">
@@ -54,7 +54,6 @@ const About = () => {
         </div>
       </div>
 
-      {/* Our Mission */}
       <div className="max-w-5xl mx-auto mt-16 px-6 grid md:grid-cols-2 gap-10 items-center">
 
         <img
@@ -75,7 +74,6 @@ const About = () => {
         </div>
       </div>
 
-      {/* Customer Love */}
       <div className="max-w-3xl mx-auto mt-20 text-center px-4">
         <FaSmile className="w-12 h-12 text-orange-700 mx-auto mb-4" />
         <h3 className="text-3xl font-bold text-gray-800 mb-3">
@@ -86,7 +84,9 @@ const About = () => {
           lovers all over the country.
         </p>
       </div>
-    </div>
+        </div>
+        <Footer />
+        </>
   );
 };
 

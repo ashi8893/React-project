@@ -11,20 +11,18 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Handles form input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // ✅ Sends email using EmailJS
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
     const serviceID = "service_x8jnmou";
     const templateID = "template_34d344j";
-    const publicKey = "oZknWyWlD-RWnRA20"; // ⚠️ Replace with your actual EmailJS public key
+    const publicKey = "oZknWyWlD-RWnRA20";
 
     emailjs
       .send(serviceID, templateID, formData, publicKey)
@@ -38,7 +36,7 @@ const Contact = () => {
       .catch((err) => {
         console.error("Error sending email:", err);
         setLoading(false);
-        alert("❌ Failed to send message. Please try again later.");
+        alert("Failed to send message. Please try again later.");
       });
   };
 
@@ -51,7 +49,6 @@ const Contact = () => {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Contact Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-gray-700 font-medium mb-2">
@@ -117,7 +114,6 @@ const Contact = () => {
               )}
             </form>
 
-            {/* Contact Info */}
             <div className="bg-blue-50 p-6 rounded-xl">
               <h3 className="text-xl font-semibold mb-4 text-orange-700">
                 Get in Touch
@@ -134,7 +130,7 @@ const Contact = () => {
                   <strong>Phone:</strong> +91 88933 90415
                 </li>
                 <li>
-                  <strong>Email:</strong> flywheels@gmail.com
+                  <strong>Email:</strong> hotwheels@gmail.com
                 </li>
                 <li>
                   <strong>Hours:</strong> Mon - Sat (9:00 AM - 6:00 PM)

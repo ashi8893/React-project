@@ -1,7 +1,6 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify"; // ✅ Import Toastify
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +14,7 @@ const Login = () => {
 
     if (!email || !password) {
       setError("Please enter both email and password");
-      toast.warning("Please enter both email and password"); // ⚠️ Toast instead of alert
+      toast.warning("Please enter both email and password");
       return;
     }
 
@@ -29,26 +28,23 @@ const Login = () => {
 
       if (!user) {
         setError("Invalid email or password");
-        toast.error("Invalid email or password"); // ❌ Toast for invalid login
+        toast.error("Invalid email or password"); 
         return;
       }
 
-      // ✅ Save logged-in user in localStorage
       localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-      // ✅ Toast for successful login
       toast.success(`✅ Login successful! Welcome back, ${user.name || "User"}!`);
 
-      // ✅ Redirect to home or any page you like
       setTimeout(() => {
         navigate("/");
         window.location.reload();
-      }, 1500); // small delay to let toast show before redirect
+      }, 1500);
 
     } catch (err) {
       console.error("Login error:", err);
       setError("Unable to connect to server. Please try again later.");
-      toast.error("Unable to connect to server. Please try again later."); // ❌ Toast for server issue
+      toast.error("Unable to connect to server. Please try again later.");
     }
   };
 

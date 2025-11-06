@@ -15,10 +15,7 @@ const Cart = () => {
       return;
     }
 
-    // Save the current cart for Payment page
     localStorage.setItem("cart", JSON.stringify(cart));
-
-    // Remove single-buy selection to avoid conflict
     localStorage.removeItem("selectedCar");
 
     navigate("/payment");
@@ -28,7 +25,6 @@ const Cart = () => {
     <div className="bg-gray-50 py-10 px-6 sm:px-10 lg:px-20 min-h-screen">
       <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">My Cart</h1>
 
-      {/* Cart Summary */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8 max-w-2xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
           <div>
@@ -37,12 +33,11 @@ const Cart = () => {
           </div>
           <div>
             <p className="text-2xl font-bold text-green-600">₹{totalValue}</p>
-            <p className="text-gray-600">Total Value</p>
+            <p className="text-gray-600">Total Price</p>
           </div>
         </div>
       </div>
 
-      {/* Cart Items */}
       {cart.length > 0 ? (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {cart.map((car) => (
@@ -59,7 +54,6 @@ const Cart = () => {
                 <p className="text-gray-600 text-sm mb-2">{car.category}</p>
                 <p className="text-gray-900 font-bold text-xl mb-4">₹{car.price * (car.qty || 1)}</p>
 
-                {/* Quantity */}
                 <div className="flex justify-center items-center gap-4 mb-3">
                   <button
                     onClick={() => updateQuantity(car.id, (car.qty || 1) - 1)}

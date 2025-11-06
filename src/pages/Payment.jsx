@@ -13,7 +13,7 @@ const Payment = () => {
   const [upiId, setUpiId] = useState("");
 
   const navigate = useNavigate();
-  const { clearCart } = useCart(); // ✅ use clearCart from context
+  const { clearCart } = useCart();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -97,14 +97,13 @@ const Payment = () => {
 
       toast.success("🎉 Payment Successful! Order placed successfully.");
 
-      // ✅ Clear cart & single-buy selection
-      clearCart(); // clears context + localStorage
+      clearCart();
       localStorage.removeItem("selectedCar");
 
       setTimeout(() => navigate("/shipping"), 1500);
     } catch (error) {
       console.error("Order saving failed:", error);
-      toast.error("❌ Failed to place order. Please try again.");
+      toast.error("Failed to place order. Please try again.");
     }
   };
 
@@ -115,7 +114,6 @@ const Payment = () => {
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Payment Form */}
         <form
           onSubmit={handlePayment}
           className="bg-white rounded-2xl shadow-lg p-8 space-y-6"
@@ -148,7 +146,7 @@ const Payment = () => {
           <div>
             <label className="block text-gray-600 mb-1">Phone</label>
             <input
-              type="tel"
+              type="number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="Enter your phone number"
@@ -157,7 +155,6 @@ const Payment = () => {
             />
           </div>
 
-          {/* Payment Method */}
           <div>
             <label className="block text-gray-600 mb-2">Payment Method</label>
             <div className="space-y-2">
@@ -193,7 +190,6 @@ const Payment = () => {
             </div>
           </div>
 
-          {/* Conditional Payment Inputs */}
           {paymentMethod === "card" && (
             <div>
               <label className="block text-gray-600 mb-1">Card Number</label>
@@ -229,7 +225,6 @@ const Payment = () => {
           </button>
         </form>
 
-        {/* Order Summary */}
         <div className="bg-white rounded-2xl shadow-lg p-8 h-fit">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">Order Summary</h2>
 

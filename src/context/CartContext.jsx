@@ -6,7 +6,6 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
 
-  // Listen to storage changes (other tabs)
   useEffect(() => {
     const handleStorageChange = () => {
       const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -16,23 +15,20 @@ export const CartProvider = ({ children }) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // Load cart whenever user changes
   useEffect(() => {
     if (user) {
       const savedCart = JSON.parse(localStorage.getItem(`cart_${user.email}`)) || [];
       setCart(savedCart);
     } else {
-      setCart([]); // Clear instantly on logout
+      setCart([]); // ✅ clear instantly when user becomes null
     }
   }, [user]);
 
-  // Save helper
   const save = (updatedCart) => {
     setCart(updatedCart);
     if (user) localStorage.setItem(`cart_${user.email}`, JSON.stringify(updatedCart));
   };
 
-  // Add item
   const addToCart = (product) => {
     const exists = cart.find((item) => item.id === product.id);
     if (exists) {
@@ -53,15 +49,26 @@ export const CartProvider = ({ children }) => {
     save(cart.map((item) => (item.id === id ? { ...item, qty } : item)));
   };
 
-  // Clear cart instantly
-  const clearCart = () => save([]);
+  // ✅ Clear cart instantly on logout + remove the saved cart
+  const clearCart = () => {
+    setCart([]);
+    if (user) localStorage.removeItem(`cart_${user.email}`);
+  };
 
   // Count
   const cartCount = cart.reduce((total, item) => total + item.qty, 0);
 
   return (
     <CartContext.Provider
-      value={{ cart, cartCount, addToCart, removeFromCart, updateQuantity, clearCart, setUser }}
+      value={{ 
+        cart, 
+        cartCount, 
+        addToCart, 
+        removeFromCart, 
+        updateQuantity, 
+        clearCart, 
+        setUser 
+      }}
     >
       {children}
     </CartContext.Provider>

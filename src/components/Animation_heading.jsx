@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 
 const TrueFocus = ({
-  sentence = 'Welcome to fly wheels',
+  sentence = 'Welcome To Hot Wheels',
   manualMode = false,
   blurAmount = 5,
   borderColor = 'black',
