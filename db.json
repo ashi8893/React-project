@@ -311,6 +311,12 @@
       "name": "Mohammed ihsan",
       "email": "ihsan@gmail.com",
       "password": "Ihsan@123"
+    },
+    {
+      "id": "8131",
+      "name": "athika",
+      "email": "aathika@gmail.com",
+      "password": "Athika@123"
     }
   ],
   "orders": [
@@ -935,6 +941,50 @@
           "name": "Sports Car with Full Metal Body Construction",
           "price": 799,
           "qty": 3
+        }
+      ]
+    },
+    {
+      "id": "1762412205178",
+      "email": "ashfak@gmail.com",
+      "orderId": "ORD36226",
+      "address": "safwan house",
+      "phone": "112245677",
+      "paymentMethod": "cod",
+      "totalAmount": 3295,
+      "status": "Cancelled",
+      "createdAt": "2025-11-06T06:56:45.178Z",
+      "trackingId": "TRK686376",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 3
+        },
+        {
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 2
+        }
+      ]
+    },
+    {
+      "id": "1762425249709",
+      "email": "ashfak@gmail.com",
+      "orderId": "ORD13024",
+      "address": " bn",
+      "phone": "234567",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Cancelled",
+      "createdAt": "2025-11-06T10:34:09.709Z",
+      "trackingId": "TRK406075",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
         }
       ]
     }

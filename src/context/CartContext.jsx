@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
       const savedCart = JSON.parse(localStorage.getItem(`cart_${user.email}`)) || [];
       setCart(savedCart);
     } else {
-      setCart([]); // ✅ clear instantly when user becomes null
+      setCart([]); 
     }
   }, [user]);
 
@@ -40,22 +40,20 @@ export const CartProvider = ({ children }) => {
     save([...cart, { ...product, qty: 1 }]);
   };
 
-  // Remove item
+
   const removeFromCart = (id) => save(cart.filter((item) => item.id !== id));
 
-  // Update quantity
   const updateQuantity = (id, qty) => {
     if (qty <= 0) return removeFromCart(id);
     save(cart.map((item) => (item.id === id ? { ...item, qty } : item)));
   };
 
-  // ✅ Clear cart instantly on logout + remove the saved cart
   const clearCart = () => {
     setCart([]);
     if (user) localStorage.removeItem(`cart_${user.email}`);
   };
 
-  // Count
+  
   const cartCount = cart.reduce((total, item) => total + item.qty, 0);
 
   return (

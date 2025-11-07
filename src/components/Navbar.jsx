@@ -97,7 +97,7 @@ const ProtectedLink = ({ to, children, user, className = "", iconName = "" }) =>
   );
 };
 
-const ProtectedButton = ({ to, children, user, onClick, className = "", iconName = "" }) => {
+const ProtectedButton = ({children, user, onClick, className = "", iconName = "" }) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -190,9 +190,9 @@ const handleLogout = () => {
             </Link>
 
             <Link
-              to="/Others"
+              to="/contact"
               className={`transition duration-300 ${
-                activeMenu === "/Others" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
+                activeMenu === "/contact" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
               }`}
             >
               Contact
@@ -338,7 +338,7 @@ const handleLogout = () => {
             {user ? (
               <>
                 <p className="px-3 text-gray-700 py-2">
-                  Hi, <span className="font-semibold">{user.name}</span>
+                  Hi, <span className="font-semibold">{user.name}</span> 
                 </p>
                 <button
                   onClick={() => {

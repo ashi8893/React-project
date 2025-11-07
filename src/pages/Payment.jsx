@@ -79,10 +79,12 @@ const Payment = () => {
       status: "Processing",
       createdAt: new Date().toISOString(),
       trackingId: "TRK" + Math.floor(Math.random() * 999999),
+
       items: cartItems.map((item) => ({
         name: item.name,
         price: item.price,
         qty: item.qty || 1,
+        image: item.image, 
       })),
     };
 

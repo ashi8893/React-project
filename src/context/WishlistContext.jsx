@@ -7,7 +7,6 @@ export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("loggedInUser")));
 
-  // ✅ Listen to login/logout changes from other tabs
   useEffect(() => {
     const handleStorageChange = () => {
       const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -18,7 +17,6 @@ export const WishlistProvider = ({ children }) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // ✅ Load wishlist when the user changes
   useEffect(() => {
     if (user) {
       const savedWishlist =
@@ -39,7 +37,6 @@ export const WishlistProvider = ({ children }) => {
     }
   };
 
-  // ✅ Add item to wishlist with toast
   const addToWishlist = (product) => {
     const exists = wishlist.find((item) => item.id === product.id);
 
@@ -56,7 +53,6 @@ export const WishlistProvider = ({ children }) => {
     save(wishlist.filter((item) => item.id !== id));
   };
 
-  // ✅ FIXED — clears UI + clears saved wishlist in localStorage
   const clearWishlist = () => {
     setWishlist([]);
     if (user) {

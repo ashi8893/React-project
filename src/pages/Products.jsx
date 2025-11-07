@@ -13,7 +13,6 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -21,7 +20,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   const { addToCart } = useCart();
-
+ 
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   const isInWishlist = (id) => wishlist.some((item) => item.id === id);
@@ -69,10 +68,11 @@ const Products = () => {
         return true;
       });
     }
+    
 
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  }, [products, selectedCategory, priceRange, searchTerm]);
+  }, [products, selectedCategory, priceRange,  ]);
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
@@ -112,6 +112,7 @@ const Products = () => {
         <div className="mb-8 bg-gray-100 p-6 rounded-lg">
           <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Category
@@ -152,7 +153,6 @@ const Products = () => {
               onClick={() => {
                 setSelectedCategory("all");
                 setPriceRange("all");
-                setSearchTerm("");
               }}
               className="px-4 py-2 bg-orange-700 text-white rounded-md hover:bg-orange-600 transition"
             >

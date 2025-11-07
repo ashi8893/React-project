@@ -6,7 +6,6 @@ import Products from "./pages/Products";
 import Wishlist from "./pages/Wishlist";
 import Account from "./pages/Account";
 import Cart from "./pages/Cart";
-import SearchResults from "./components/SearchResults";
 import About from "./pages/About";
 import Others from "./pages/Contact";
 import Login from "./pages/Login";
@@ -30,9 +29,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products category="Products" />} />
               <Route path="/about" element={<About />} />
-              <Route path="/others" element={<Others />} />
+              <Route path="/contact" element={<Others />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/search" element={<SearchResults />} />
+              <Route path="/Account" element={<Account />} />
 
               <Route
                 path="/wishlist"

@@ -69,8 +69,6 @@ const Shipping = () => {
     }
   };
 
- 
-
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-6 font-sans">
@@ -133,16 +131,29 @@ const Shipping = () => {
                     </span>
                   </div>
 
+                  {/* ✅ Updated Product Section with Image */}
                   <div className="space-y-3">
                     {order.items?.map((item, i) => (
                       <div
                         key={i}
-                        className="flex justify-between items-center text-sm text-gray-700"
+                        className="flex items-center justify-between gap-4 border-b pb-3"
                       >
-                        <span>
-                          {item.name} × {item.qty}
-                        </span>
-                        <span className="font-medium">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 rounded-lg object-cover border"
+                        />
+
+                        <div className="flex-1">
+                          <p className="font-medium text-gray-800">
+                            {item.name}
+                          </p>
+                          <p className="text-gray-500 text-xs">
+                            Qty: {item.qty}
+                          </p>
+                        </div>
+
+                        <span className="font-semibold text-gray-800">
                           ₹{item.price * item.qty}
                         </span>
                       </div>
@@ -186,11 +197,10 @@ const Shipping = () => {
                 </div>
               ))}
             </div>
-
-           
           </>
         )}
       </div>
+
       <Footer />
     </>
   );

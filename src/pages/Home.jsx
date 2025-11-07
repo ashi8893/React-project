@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Css/Home.css';
 import Footer from '../components/Footer'
-import Heading from '../components/Animation_heading'
+import Heading from '../components/Heading'
 import { useNavigate } from 'react-router-dom';
 function Home() {
   const navigate = useNavigate();
