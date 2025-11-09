@@ -47,13 +47,13 @@ const Wishlist = () => {
             key={product.id}
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden w-full flex flex-col border border-pink-200"
           >
-            <div className="w-full h-56 overflow-hidden">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <div className="w-full h-72 overflow-hidden">
+  <img
+    src={product.image}
+    alt={product.name}
+    className="w-full h-full object-cover"
+  />
+</div>
 
             <div className="p-4 flex flex-col flex-grow justify-between text-center">
               <div>

@@ -124,199 +124,31 @@
   "users": [
     {
       "id": "3449",
-      "name": "ashfak",
-      "email": "ashfakkp@gmail.com",
-      "password": "8893390415",
-      "address": ""
+      "name": "a",
+      "role": "admin",
+      "email": "a@gmail.com",
+      "password": "a"
     },
     {
-      "id": "e6fa",
-      "name": "vaishakh",
-      "email": "vaishakh@gmail.com",
-      "password": "1234",
-      "address": ""
+      "id": "f8e9",
+      "name": "naheel",
+      "email": "n@gmail.com",
+      "password": "n",
+      "role": "user"
     },
     {
-      "id": "39e0",
-      "name": "anshifa",
-      "email": "anshifa@gmail.com",
-      "password": "anshifa@123"
-    },
-    {
-      "id": "6d78",
-      "name": "safwan",
-      "email": "safwan@gmai.com",
-      "password": "Ashi@123"
-    },
-    {
-      "id": "ee0f",
-      "name": "irfan",
-      "email": "irfan@gmal.com",
-      "password": "Ashi@123"
-    },
-    {
-      "id": "515d",
-      "name": "asgfggb",
-      "email": "as@gmail.com",
-      "password": "asd",
-      "address": "asd"
-    },
-    {
-      "id": "1482",
-      "name": "Aathika",
-      "email": "athika@gmail.com",
-      "password": "9946",
-      "address": "karayil house chalappuram ,nadapuram"
-    },
-    {
-      "id": "972f",
-      "name": "muhammed ansil R",
-      "email": "ansilr@gmail.com",
-      "password": "9999",
-      "address": "eripparambil house payyoli kannur"
-    },
-    {
-      "id": "6af8",
-      "name": "naheel ",
-      "email": "naheel@gmail.com",
-      "password": "0000",
-      "address": "meleparambil house"
-    },
-    {
-      "id": "fbf3",
-      "name": "riya",
-      "email": "riya@gmail.com",
-      "password": "12345678",
-      "address": "thottathil"
-    },
-    {
-      "id": "1794",
-      "name": "safwan",
-      "email": "safwan@gmail.com",
-      "password": "1111",
-      "address": "yiedvsyuckj"
-    },
-    {
-      "id": "c8e1",
-      "name": "ajmal",
-      "email": "ajmal@gmail.com",
-      "password": "2222",
-      "address": "dsiojwef98h"
-    },
-    {
-      "id": "f1ee",
-      "name": "nabeel",
-      "email": "nabeel@gmail.com",
-      "password": "4444",
-      "address": "444isdjvkrnwkl"
-    },
-    {
-      "id": "f0ec",
-      "name": "salman",
-      "email": "salman@gmail.com",
-      "password": "5555"
-    },
-    {
-      "id": "af72",
-      "name": "ansil",
-      "email": "ansil@gmail.com",
-      "password": "6666"
-    },
-    {
-      "id": "e999",
+      "id": "3cb0",
       "name": "faheem",
       "email": "faheem@gmail.com",
-      "password": "6666"
+      "password": "Faheem@123",
+      "role": "user"
     },
     {
-      "id": "9480",
-      "name": "s",
-      "email": "s@gmail.com",
-      "password": "1111"
-    },
-    {
-      "id": "5760",
-      "name": "a",
-      "email": "a@gmail.com",
-      "password": "2"
-    },
-    {
-      "id": "597e",
-      "name": "nabeel paisa",
-      "email": "p@gmail.com",
-      "password": "1"
-    },
-    {
-      "id": "3870",
-      "name": "l",
-      "email": "l@gmail.com",
-      "password": "0000"
-    },
-    {
-      "id": "7f6e",
-      "name": "b",
-      "email": "b@gmail.com",
-      "password": "1"
-    },
-    {
-      "id": "63fd",
-      "name": "hello",
-      "email": "1@gmail.com",
-      "password": "1"
-    },
-    {
-      "id": "f67a",
-      "name": "m",
-      "email": "m@gmail.com",
-      "password": "m"
-    },
-    {
-      "id": "0ddb",
-      "name": "awiushjbn",
-      "email": "ruehjbdn@gmail.com",
-      "password": "Ashfak@123"
-    },
-    {
-      "id": "acca",
-      "name": "saras",
-      "email": "saras@gmail.com",
-      "password": "Saras@123"
-    },
-    {
-      "id": "a2f9",
-      "name": "naheel",
-      "email": "naheeel@gmail.com",
-      "password": "Naheel@123"
-    },
-    {
-      "id": "290d",
-      "name": "anzil",
-      "email": "anzil@gmail.com",
-      "password": "Anzil@123"
-    },
-    {
-      "id": "8832",
-      "name": "mishal",
-      "email": "mishal@gmail.com",
-      "password": "Mishal@123"
-    },
-    {
-      "id": "0a8f",
-      "name": "a",
-      "email": "ashfak@gmail.com",
-      "password": "Ashfak@123"
-    },
-    {
-      "id": "cbad",
-      "name": "Mohammed ihsan",
-      "email": "ihsan@gmail.com",
-      "password": "Ihsan@123"
-    },
-    {
-      "id": "8131",
-      "name": "athika",
+      "id": "e7aa",
+      "name": "aathika",
       "email": "aathika@gmail.com",
-      "password": "Athika@123"
+      "password": "Aathika@123",
+      "role": "user"
     }
   ],
   "orders": [
@@ -325,7 +157,7 @@
       "email": "ajmal@gmail.com",
       "orderId": "ORD58919",
       "address": "dsiojwef98h",
-      "status": "Cancelled",
+      "status": "Delivered",
       "createdAt": "2025-11-04T06:29:15.812Z",
       "trackingId": "TRK636529",
       "items": [
@@ -979,6 +811,132 @@
       "status": "Cancelled",
       "createdAt": "2025-11-06T10:34:09.709Z",
       "trackingId": "TRK406075",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
+        }
+      ]
+    },
+    {
+      "id": "1762506732432",
+      "email": "ashfakkp323@gmail.com",
+      "orderId": "ORD54015",
+      "address": "hello house ",
+      "phone": "8893390414",
+      "paymentMethod": "cod",
+      "totalAmount": 3995,
+      "status": "Cancelled",
+      "createdAt": "2025-11-07T09:12:12.432Z",
+      "trackingId": "TRK12799",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 5,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
+        }
+      ]
+    },
+    {
+      "id": "1762575112140",
+      "email": "ashfak88@gmail.com",
+      "orderId": "ORD18109",
+      "address": "cyghcdbsn",
+      "phone": "123456789",
+      "paymentMethod": "cod",
+      "totalAmount": 3394,
+      "status": "Cancelled",
+      "createdAt": "2025-11-08T04:11:52.140Z",
+      "trackingId": "TRK955982",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 2,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
+        },
+        {
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 4,
+          "image": "https://www.funcorp.in/cdn/shop/files/JDM29_533x.jpg?v=1748434712"
+        }
+      ]
+    },
+    {
+      "id": "1762575256367",
+      "email": "ashfak88@gmail.com",
+      "orderId": "ORD67681",
+      "address": "esrdtfyghjlk",
+      "phone": "1234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 3196,
+      "status": "Cancelled",
+      "createdAt": "2025-11-08T04:14:16.367Z",
+      "trackingId": "TRK56126",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 4,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
+        }
+      ]
+    },
+    {
+      "id": "1762575481139",
+      "email": "ashfak88@gmail.com",
+      "orderId": "ORD46800",
+      "address": "tryfghjjn",
+      "phone": "1234567889",
+      "paymentMethod": "cod",
+      "totalAmount": 3196,
+      "status": "Cancelled",
+      "createdAt": "2025-11-08T04:18:01.139Z",
+      "trackingId": "TRK590095",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 4,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
+        }
+      ]
+    },
+    {
+      "id": "1762575845024",
+      "email": "ashfak88@gmail.com",
+      "orderId": "ORD63337",
+      "address": "zsdfcgvhbjnkml,",
+      "phone": "1234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Processing",
+      "createdAt": "2025-11-08T04:24:05.024Z",
+      "trackingId": "TRK612825",
+      "items": [
+        {
+          "name": "Sports Car with Full Metal Body Construction",
+          "price": 799,
+          "qty": 1,
+          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
+        }
+      ]
+    },
+    {
+      "id": "1762674278011",
+      "email": "aathika@gmail.com",
+      "orderId": "ORD14303",
+      "address": "fcgvb n",
+      "phone": "234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 799,
+      "status": "Delivered",
+      "createdAt": "2025-11-09T07:44:38.011Z",
+      "trackingId": "TRK460311",
       "items": [
         {
           "name": "Sports Car with Full Metal Body Construction",

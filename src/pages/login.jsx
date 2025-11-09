@@ -28,23 +28,32 @@ const Login = () => {
 
       if (!user) {
         setError("Invalid email or password");
-        toast.error("Invalid email or password"); 
+        toast.error("Invalid email or password");
         return;
       }
 
+      // ✅ Save logged-in user
       localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-      toast.success(`✅ Login successful! Welcome back, ${user.name || "User"}!`);
+      toast.success(
+        `✅ Login successful! Welcome ${user.name || "User"}`
+      );
 
+      // ✅ Redirect according to role
       setTimeout(() => {
-        navigate("/");
+        if (user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+
         window.location.reload();
-      }, 1500);
+      }, 1200);
 
     } catch (err) {
       console.error("Login error:", err);
-      setError("Unable to connect to server. Please try again later.");
-      toast.error("Unable to connect to server. Please try again later.");
+      toast.error("Server error. Try again later.");
+      setError("Unable to connect to server.");
     }
   };
 
@@ -62,7 +71,7 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               placeholder="Enter your email"
               required
             />
@@ -74,17 +83,17 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2"
               placeholder="Enter your password"
               required
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {error && <p className="text-red-500 text-center text-sm">{error}</p>}
 
           <button
             type="submit"
-            className="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition-all"
+            className="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700"
           >
             Login
           </button>

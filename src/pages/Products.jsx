@@ -68,11 +68,10 @@ const Products = () => {
         return true;
       });
     }
-    
 
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  }, [products, selectedCategory, priceRange,  ]);
+  }, [products, selectedCategory, priceRange, ]);
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
@@ -112,7 +111,6 @@ const Products = () => {
         <div className="mb-8 bg-gray-100 p-6 rounded-lg">
           <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Category
@@ -153,6 +151,7 @@ const Products = () => {
               onClick={() => {
                 setSelectedCategory("all");
                 setPriceRange("all");
+                setSearchTerm("");
               }}
               className="px-4 py-2 bg-orange-700 text-white rounded-md hover:bg-orange-600 transition"
             >

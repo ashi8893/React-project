@@ -6,34 +6,18 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); 
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const validatePassword = (password) => {
     const errors = [];
-    
-    if (password.length < 8) {
-      errors.push("Password must be at least 8 characters long");
-    }
-    
-    if (!/(?=.*[A-Z])/.test(password)) {
-      errors.push("Password must contain at least one uppercase letter");
-    }
-    
-    if (!/(?=.*[a-z])/.test(password)) {
-      errors.push("Password must contain at least one lowercase letter");
-    }
-    
-    if (!/(?=.*\d)/.test(password)) {
-      errors.push("Password must contain at least one number");
-    }
-    
-    if (!/(?=.*[@$!%*?&])/.test(password)) {
-      errors.push("Password must contain at least one special character (@$!%*?&)");
-    }
-    
+    if (password.length < 8) errors.push("Password must be at least 8 characters long");
+    if (!/(?=.*[A-Z])/.test(password)) errors.push("Password must contain an uppercase letter");
+    if (!/(?=.*[a-z])/.test(password)) errors.push("Password must contain a lowercase letter");
+    if (!/(?=.*\d)/.test(password)) errors.push("Password must contain a number");
+    if (!/(?=.*[@$!%*?&])/.test(password)) errors.push("Password must contain a special character");
     return errors;
   };
 
@@ -43,21 +27,17 @@ const Register = () => {
     setSuccess("");
 
     if (!name || !email || !password || !confirmPassword) {
-      setError("All fields are required");
       toast.error("All fields are required");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
       toast.error("Passwords do not match");
       return;
     }
 
-    const passwordValidationErrors = validatePassword(password);
-    if (passwordValidationErrors.length > 0) {
-      const errorMessage = "Password must contain: 8+ characters, uppercase letter, lowercase letter, number, and special character";
-      setError(errorMessage);
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
       toast.error("Password does not meet requirements");
       return;
     }
@@ -68,12 +48,17 @@ const Register = () => {
 
       const userExists = users.some((user) => user.email === email);
       if (userExists) {
-        setError("Email already registered");
         toast.error("Email already registered");
         return;
       }
 
-      const newUser = { name, email, password };
+      // ✅ Add ROLE here
+      const newUser = {
+        name,
+        email,
+        password,
+        role: "user"          // ✅ <-- adds role to database
+      };
 
       await fetch("http://localhost:3001/users", {
         method: "POST",
@@ -81,13 +66,12 @@ const Register = () => {
         body: JSON.stringify(newUser),
       });
 
-      setSuccess("Registration successful! Redirecting to login...");
       toast.success("Registration successful!");
       setTimeout(() => navigate("/login"), 1000);
+
     } catch (err) {
       console.error(err);
-      setError("Error connecting to server");
-      toast.error("Error connecting to server");
+      toast.error("Server error");
     }
   };
 
@@ -101,69 +85,39 @@ const Register = () => {
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
             <label className="block text-gray-600 mb-1">Full Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your full name"
-              required
-            />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2" required />
           </div>
 
           <div>
             <label className="block text-gray-600 mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your email"
-              required
-            />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2" required />
           </div>
 
           <div>
             <label className="block text-gray-600 mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Enter your password"
-              required
-            />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2" required />
           </div>
 
           <div>
             <label className="block text-gray-600 mb-1">Confirm Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Confirm your password"
-              required
-            />
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2" required />
           </div>
 
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-          {success && <p className="text-green-500 text-sm text-center">{success}</p>}
+          {error && <p className="text-red-500 text-center">{error}</p>}
+          {success && <p className="text-green-500 text-center">{success}</p>}
 
-          <button
-            type="submit"
-            className="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-900 transition-all"
-          >
+          <button type="submit" className="w-full bg-orange-600 text-white py-2 rounded-lg">
             Register
           </button>
         </form>
 
         <p className="text-sm text-gray-500 mt-4 text-center">
           Already have an account?{" "}
-          <span
-            className="text-blue-600 cursor-pointer hover:underline"
-            onClick={() => navigate("/login")}
-          >
+          <span className="text-blue-600 cursor-pointer" onClick={() => navigate("/login")}>
             Login
           </span>
         </p>
