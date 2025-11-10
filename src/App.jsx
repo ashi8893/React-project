@@ -57,7 +57,7 @@ function AppContent() {
         <Route path="/products" element={<Products category="Products" />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/account" element={<Account />} />
 
         {/* ✅ Admin Routes (NO protection now) */}
