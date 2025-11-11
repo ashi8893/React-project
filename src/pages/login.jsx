@@ -32,21 +32,21 @@ const Login = () => {
         return;
       }
 
+      // ✅ FIXED BLOCK CODE
+      if (user.status === "blocked") {
+        setError("Your account has been blocked by admin");
+        toast.error("Your account has been blocked by admin");
+        return;
+      }
+
       // ✅ Save logged-in user
       localStorage.setItem("loggedInUser", JSON.stringify(user));
 
-      toast.success(
-        `✅ Login successful! Welcome ${user.name || "User"}`
-      );
+      toast.success(`✅ Login successful! Welcome ${user.name || "User"}`);
 
-      // ✅ Redirect according to role
       setTimeout(() => {
-        if (user.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
-
+        if (user.role === "admin") navigate("/admin");
+        else navigate("/");
         window.location.reload();
       }, 1200);
 

@@ -13,6 +13,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");        // ✅ NEW
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -20,7 +21,6 @@ const Products = () => {
   const navigate = useNavigate();
 
   const { addToCart } = useCart();
- 
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   const isInWishlist = (id) => wishlist.some((item) => item.id === id);
@@ -42,15 +42,20 @@ const Products = () => {
 
   const addToMyCars = (product) => {
     if (!loggedInUser) {
-      toast.warning("Please log in before adding items to your cart.", { autoClose: 1000 });
+      toast.warning("Please log in before adding items to your cart.", {
+        autoClose: 1000,
+      });
       setTimeout(() => navigate("/login"));
       return;
     }
 
     addToCart(product);
-    toast.success(`${product.name} added to your cart!`, { autoClose: 1000 });
+    toast.success(`${product.name} added to your cart!`, {
+      autoClose: 1000,
+    });
   };
 
+  // ✅ FILTERING LOGIC UPDATED (Search + Category + Price)
   useEffect(() => {
     let filtered = [...products];
 
@@ -69,9 +74,16 @@ const Products = () => {
       });
     }
 
+    // ✅ NEW SEARCH FILTER
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter((p) =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  }, [products, selectedCategory, priceRange, ]);
+  }, [products, selectedCategory, priceRange, searchTerm]);
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
@@ -110,7 +122,9 @@ const Products = () => {
 
         <div className="mb-8 bg-gray-100 p-6 rounded-lg">
           <div className="flex justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl">
+
+              {/* ✅ CATEGORY FILTER */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Category
@@ -128,6 +142,7 @@ const Products = () => {
                 </select>
               </div>
 
+              {/* ✅ PRICE FILTER */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Price Range
@@ -143,6 +158,20 @@ const Products = () => {
                   <option value="above-1000">Above ₹1000</option>
                 </select>
               </div>
+
+              {/* ✅ NEW SEARCH BAR */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Search Products
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search by name..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-800"
+                />
+              </div>
             </div>
           </div>
 
@@ -151,7 +180,7 @@ const Products = () => {
               onClick={() => {
                 setSelectedCategory("all");
                 setPriceRange("all");
-                setSearchTerm("");
+                setSearchTerm("");   // ✅ CLEAR SEARCH
               }}
               className="px-4 py-2 bg-orange-700 text-white rounded-md hover:bg-orange-600 transition"
             >
@@ -160,6 +189,7 @@ const Products = () => {
           </div>
         </div>
 
+        {/* ✅ PRODUCT GRID */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-12">
           {currentProducts.length > 0 ? (
             currentProducts.map((p) => {
@@ -182,9 +212,7 @@ const Products = () => {
                       <h2 className="text-lg font-semibold text-gray-800 mb-1">
                         {p.name}
                       </h2>
-                      <p className="text-gray-900 font-bold text-lg mb-1">
-                        ₹{p.price}
-                      </p>
+                      <p className="text-gray-900 font-bold text-lg mb-1">₹{p.price}</p>
 
                       {p.stock > 0 ? (
                         <p className="text-green-600 font-medium mb-4">
@@ -202,7 +230,7 @@ const Products = () => {
                         onClick={() => {
                           if (!loggedInUser) {
                             toast.warning("Please log in to Add wishlist.");
-                            navigate('/login');
+                            navigate("/login");
                             return;
                           }
                           liked
@@ -249,6 +277,7 @@ const Products = () => {
           )}
         </div>
 
+        {/* PAGINATION */}
         {filteredProducts.length > productsPerPage && (
           <div className="flex justify-center items-center space-x-2 mb-8">
             <button

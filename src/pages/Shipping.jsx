@@ -7,6 +7,7 @@ const Shipping = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // ✅ Fetch Orders
   useEffect(() => {
     const fetchOrders = async () => {
       const user = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -20,6 +21,7 @@ const Shipping = () => {
           `http://localhost:3001/orders?email=${user.email}`
         );
         if (!res.ok) throw new Error("Failed to load orders");
+
         const data = await res.json();
         setOrders(data.reverse());
       } catch (err) {
@@ -32,6 +34,64 @@ const Shipping = () => {
     fetchOrders();
   }, [navigate]);
 
+  // ✅ Restore stock back when cancelling order
+  const restoreStock = async (items) => {
+    for (const item of items) {
+      try {
+        // Fetch latest product
+        const productRes = await fetch(
+          `http://localhost:3001/products/${item.id}`
+        );
+        const product = await productRes.json();
+
+        const updatedStock =
+          Number(product.stock || 0) + Number(item.qty || 1);
+
+        // Update backend stock
+        await fetch(`http://localhost:3001/products/${item.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stock: updatedStock }),
+        });
+      } catch (err) {
+        console.error("Error restoring product stock:", err);
+      }
+    }
+  };
+
+  // ✅ Cancel Order → Update order + restore stock
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm("Are you sure you want to cancel this order?")) return;
+
+    try {
+      // ✅ Get order details
+      const orderRes = await fetch(`http://localhost:3001/orders/${orderId}`);
+      const orderData = await orderRes.json();
+
+      // ✅ Restore stock for all items in that order
+      await restoreStock(orderData.items);
+
+      // ✅ Update order status to Cancelled
+      await fetch(`http://localhost:3001/orders/${orderId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "Cancelled" }),
+      });
+
+      // ✅ Update UI instantly
+      setOrders((prev) =>
+        prev.map((order) =>
+          order.id === orderId ? { ...order, status: "Cancelled" } : order
+        )
+      );
+
+      alert("Order cancelled and stock restored!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to cancel the order. Try again later.");
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case "Delivered":
@@ -42,30 +102,6 @@ const Shipping = () => {
         return "bg-red-100 text-red-700";
       default:
         return "bg-blue-100 text-blue-700";
-    }
-  };
-
-  const handleCancelOrder = async (orderId) => {
-    if (!window.confirm("Are you sure you want to cancel this order?")) return;
-
-    try {
-      const res = await fetch(`http://localhost:3001/orders/${orderId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "Cancelled" }),
-      });
-
-      if (!res.ok) throw new Error("Failed to cancel order");
-
-      setOrders((prev) =>
-        prev.map((order) =>
-          order.id === orderId ? { ...order, status: "Cancelled" } : order
-        )
-      );
-      alert("Order has been cancelled successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to cancel the order. Try again later.");
     }
   };
 
@@ -122,6 +158,7 @@ const Shipping = () => {
                         })}
                       </p>
                     </div>
+
                     <span
                       className={`px-3 py-1 text-sm font-semibold rounded-full self-start md:self-center ${getStatusColor(
                         order.status
@@ -131,7 +168,7 @@ const Shipping = () => {
                     </span>
                   </div>
 
-                  {/* ✅ Updated Product Section with Image */}
+                  {/* ✅ Items */}
                   <div className="space-y-3">
                     {order.items?.map((item, i) => (
                       <div
@@ -148,9 +185,7 @@ const Shipping = () => {
                           <p className="font-medium text-gray-800">
                             {item.name}
                           </p>
-                          <p className="text-gray-500 text-xs">
-                            Qty: {item.qty}
-                          </p>
+                          <p className="text-gray-500 text-xs">Qty: {item.qty}</p>
                         </div>
 
                         <span className="font-semibold text-gray-800">

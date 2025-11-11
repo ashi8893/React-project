@@ -32,7 +32,8 @@ const Payment = () => {
       const singleCar = JSON.parse(localStorage.getItem("selectedCar"));
       if (singleCar) items = [{ ...singleCar, qty: singleCar.qty || 1 }];
     } else {
-      const savedCart = JSON.parse(localStorage.getItem(`cart_${user.email}`)) || [];
+      const savedCart =
+        JSON.parse(localStorage.getItem(`cart_${user.email}`)) || [];
       items = savedCart;
     }
 
@@ -81,14 +82,16 @@ const Payment = () => {
       trackingId: "TRK" + Math.floor(Math.random() * 999999),
 
       items: cartItems.map((item) => ({
+        id: item.id,
         name: item.name,
         price: item.price,
         qty: item.qty || 1,
-        image: item.image, 
+        image: item.image,
       })),
     };
 
     try {
+      // ✅ Save order
       const response = await fetch("http://localhost:3001/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -96,6 +99,20 @@ const Payment = () => {
       });
 
       if (!response.ok) throw new Error("Failed to save order");
+
+      // ✅ STOCK DECREASE HERE
+      for (const item of cartItems) {
+        const res = await fetch(`http://localhost:3001/products/${item.id}`);
+        const product = await res.json();
+
+        const newStock = product.stock - (item.qty || 1);
+
+        await fetch(`http://localhost:3001/products/${item.id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stock: newStock }),
+        });
+      }
 
       toast.success("🎉 Payment Successful! Order placed successfully.");
 
@@ -228,7 +245,9 @@ const Payment = () => {
         </form>
 
         <div className="bg-white rounded-2xl shadow-lg p-8 h-fit">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">Order Summary</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            Order Summary
+          </h2>
 
           <div className="divide-y divide-gray-200">
             {cartItems.map((item) => (
@@ -236,7 +255,9 @@ const Payment = () => {
                 <p className="text-gray-700 font-medium">
                   {item.name} × {item.qty}
                 </p>
-                <p className="text-gray-800 font-semibold">₹{item.price * item.qty}</p>
+                <p className="text-gray-800 font-semibold">
+                  ₹{item.price * item.qty}
+                </p>
               </div>
             ))}
           </div>

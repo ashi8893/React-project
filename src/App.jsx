@@ -14,7 +14,7 @@ import Account from "./pages/Account";
 import Cart from "./pages/Cart";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 import Payment from "./pages/Payment";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -25,13 +25,13 @@ import { WishlistProvider } from "./context/WishlistContext";
 import Shipping from "./pages/Shipping";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+// ✅ Correct Admin Route Component
+import ProtectedAdminRoute from "./pages/Admin/ProtectedAdminRoute";
+
 // ✅ Admin imports
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminProducts from "./pages/Admin/AdminProducts";
-
-// ✅ FIXED wrong import
 import AdminUsers from "./pages/Admin/AdminUserDetails";
-
 import AdminUserDetails from "./pages/Admin/AdminUserDetails";
 import AdminHome from "./pages/Admin/AdminHome";
 import AdminOrders from "./pages/Admin/AdminOrders";
@@ -45,7 +45,7 @@ function AppContent() {
   const hideNavbar =
     location.pathname.startsWith("/admin") ||
     location.pathname === "/login" ||
-    location.pathname === "/account";
+    location.pathname === "/Account";
 
   return (
     <div className="App">
@@ -57,11 +57,18 @@ function AppContent() {
         <Route path="/products" element={<Products category="Products" />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/account" element={<Account />} />
 
-        {/* ✅ Admin Routes (NO protection now) */}
-        <Route path="/admin" element={<AdminDashboard />}>
+        {/* ✅ PROTECTED ADMIN ROUTES (UPDATED) */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        >
           <Route index element={<AdminHome />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="users" element={<AdminUsers />} />
@@ -69,7 +76,7 @@ function AppContent() {
           <Route path="orders" element={<AdminOrders />} />
         </Route>
 
-        {/* Protected User Routes */}
+        {/* ✅ Protected User Routes */}
         <Route
           path="/wishlist"
           element={

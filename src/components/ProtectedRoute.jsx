@@ -7,7 +7,13 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
+  // ✅ Block user instantly if admin blocked them
+  if (loggedInUser.status === "blocked") {
+    localStorage.removeItem("loggedInUser");
+    return <Navigate to="/login" replace />;
+  }
+
   return children;
 };
 
-export default ProtectedRoute;  
+export default ProtectedRoute;

@@ -3,18 +3,17 @@ import { useAdmin } from "./context/AdminContext";
 import { Shield, UserCog, UserX } from "lucide-react";
 
 export default function AdminUsers() {
-  const { users , orders ,setUsers} = useAdmin();
-console.log(orders);
+  const { users, updateUser, deleteUser} = useAdmin();
 
+  // ✅ Update Role (Saves to DB)
+  const handleRoleChange = (id, newRole) => {
+    updateUser(id, { role: newRole });
+  };
 
-const handleRoleChange = (id, newRole) => {
-  setUsers(prev =>
-    prev.map(user =>
-      user.id === id ? { ...user, role: newRole } : user
-    )
-  );
-};
-
+  // ✅ Update Status (Active / Blocked)
+  const handleStatusChange = (id, newStatus) => {
+    updateUser(id, { status: newStatus });
+  };
 
   return (
     <div className="min-h-screen bg-gray-950 px-4 py-10 flex justify-center ml-14">
@@ -52,45 +51,51 @@ const handleRoleChange = (id, newRole) => {
                     className="border-b border-gray-800 hover:bg-gray-800/40 transition-all duration-200"
                   >
                     <td className="p-3 sm:p-4 text-slate-100 whitespace-nowrap">
-                      {u.username}
+                      {u.name}
                     </td>
+
                     <td className="p-3 sm:p-4 text-slate-400 whitespace-nowrap">
                       {u.email}
                     </td>
 
-                     
+                    {/* ✅ STATUS DROPDOWN (saves to DB) */}
                     <td className="p-3 sm:p-4 text-center">
                       <select
+                        value={u.status || "active"}
+                        onChange={(e) =>
+                          handleStatusChange(u.id, e.target.value)
+                        }
                         className="bg-gray-800 text-slate-200 px-2 sm:px-3 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-slate-400"
-                        defaultValue="active"
                       >
                         <option value="active">Active</option>
                         <option value="blocked">Blocked</option>
                       </select>
                     </td>
 
-                    
+                    {/* ✅ ROLE DROPDOWN (saves to DB) */}
                     <td className="p-3 sm:p-4 text-center">
                       <select
-                       value={u.role}
-                        onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                        value={u.role}
+                        onChange={(e) =>
+                          handleRoleChange(u.id, e.target.value)
+                        }
                         className="bg-gray-800 text-slate-200 px-2 sm:px-3 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-slate-400"
-                       
                       >
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
                       </select>
                     </td>
 
-                    
                     <td className="p-3 sm:p-4 flex items-center justify-center gap-3 sm:gap-4">
                       <button className="text-blue-400 hover:text-blue-300 transition">
                         <UserCog size={18} />
                       </button>
+
                       <button className="text-yellow-400 hover:text-yellow-300 transition">
                         <Shield size={18} />
                       </button>
-                      <button className="text-red-500 hover:text-red-400 transition">
+
+                      <button className="text-red-500 hover:text-red-400 transition" onClick={()=> deleteUser(u.id)}>
                         <UserX size={18} />
                       </button>
                     </td>

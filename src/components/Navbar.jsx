@@ -97,7 +97,7 @@ const ProtectedLink = ({ to, children, user, className = "", iconName = "" }) =>
   );
 };
 
-const ProtectedButton = ({children, user, onClick, className = "", iconName = "" }) => {
+const ProtectedButton = ({ children, user, onClick, className = "", iconName = "" }) => {
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -128,116 +128,98 @@ const Navbar = () => {
 
   const activeMenu = location.pathname;
 
+  const isAdmin = user?.role === "admin"; // ✅ Admin Check
+
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     setUser(loggedInUser);
   }, []);
 
   const { clearCart } = useCart();
-const { clearWishlist } = useWishlist();
+  const { clearWishlist } = useWishlist();
 
-const handleLogout = () => {
-  clearCart();  
-  clearWishlist();   
-
-  localStorage.removeItem("loggedInUser");
-  setUser(null);
-
-  toast.success("Logged out successfully!");
-  navigate("/login");
-};
-
+  const handleLogout = () => {
+    clearCart();
+    clearWishlist();
+    localStorage.removeItem("loggedInUser");
+    setUser(null);
+    toast.success("Logged out successfully!");
+    navigate("/login");
+  };
 
   return (
-    <nav className="bg-gray-300  sticky top-0 z-50 font-sans ">
+    <nav className="bg-gray-300 sticky top-0 z-50 font-sans ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18">
-          
-          <Link
-            to="/"
-            className="text-2xl font-extrabold text-orange-700 hover:text-orange-900 transition duration-300"
-          >
-            Hot Wheels 
+          <Link to="/" className="text-2xl font-extrabold text-orange-700 hover:text-orange-900 transition duration-300">
+            Hot Wheels
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
-            
             <Link
               to="/"
-              className={`transition duration-300 ${
-                activeMenu === "/" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
-              }`}
+              className={`transition duration-300 ${activeMenu === "/" ? "text-orange-700 font-semibold" : "hover:text-orange-700"}`}
             >
               Home
             </Link>
 
             <Link
               to="/Products"
-              className={`transition duration-300 ${
-                activeMenu === "/Products" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
-              }`}
+              className={`transition duration-300 ${activeMenu === "/Products" ? "text-orange-700 font-semibold" : "hover:text-orange-700"}`}
             >
               Products
             </Link>
 
             <Link
               to="/About"
-              className={`transition duration-300 ${
-                activeMenu === "/About" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
-              }`}
+              className={`transition duration-300 ${activeMenu === "/About" ? "text-orange-700 font-semibold" : "hover:text-orange-700"}`}
             >
               About
             </Link>
 
             <Link
               to="/contact"
-              className={`transition duration-300 ${
-                activeMenu === "/contact" ? "text-orange-700 font-semibold" : "hover:text-orange-700"
-              }`}
+              className={`transition duration-300 ${activeMenu === "/contact" ? "text-orange-700 font-semibold" : "hover:text-orange-700"}`}
             >
               Contact
             </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-5 ml-20">
-            <ProtectedLink 
-              to="/wishlist" 
-              user={user} 
-              className="hover:text-orange-700"
-              iconName="Wishlist"
-            >
+            <ProtectedLink to="/wishlist" user={user} className="hover:text-orange-700" iconName="Wishlist">
               <HeartIcon count={wishlistCount} />
             </ProtectedLink>
 
             {!user && (
-              <Link to="/account" className="hover:text-orange-700">
+              <Link to="/Account" className="hover:text-orange-700">
                 <UserIcon />
               </Link>
             )}
 
-            <ProtectedLink 
-              to="/cart" 
-              user={user} 
-              className="hover:text-orange-700"
-              iconName="Cart"
-            >
+            <ProtectedLink to="/cart" user={user} className="hover:text-orange-700" iconName="Cart">
               <CartIcon count={cartCount} />
             </ProtectedLink>
 
-            <ProtectedLink 
-              to="/Shipping" 
-              user={user} 
-              className="hover:text-orange-700"
-              iconName="Orders"
-            >
+            <ProtectedLink to="/Shipping" user={user} className="hover:text-orange-700" iconName="Orders">
               <TruckIcon />
             </ProtectedLink>
 
+            {/* ✅ ✅ UPDATED SECTION — ADMIN PANEL BUTTON BESIDE LOGOUT ✅ ✅ */}
             {user ? (
               <div className="flex items-center space-x-8">
                 <span className="text-gray-700 text-sm">
                   Hi, <span className="font-semibold">{user.name}</span>
                 </span>
+
+                {isAdmin && (
+                  <button
+                    onClick={() => navigate("/admin")}
+                    className="mr-3 px-3 py-1 bg-purple-600 text-white text-sm rounded hover:bg-purple-700 transition"
+                  >
+                    Admin Panel
+                  </button>
+                )}
+
                 <button
                   onClick={handleLogout}
                   className="mr-1 px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition duration-300"
@@ -255,14 +237,11 @@ const handleLogout = () => {
             )}
           </div>
 
-          <div className="md:hidden flex items-center space-x-3">
-            <ProtectedLink 
-              to="/cart" 
-              user={user}
-              iconName="Cart"
-            >
+          <div className="md:hidden flex items-center space-x-3 ml-auto">
+            <ProtectedLink to="/cart" user={user} iconName="Cart">
               <CartIcon count={cartCount} />
             </ProtectedLink>
+
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 text-gray-700 hover:text-indigo-600 rounded-full transition duration-300"
@@ -273,40 +252,44 @@ const handleLogout = () => {
         </div>
       </div>
 
+      {/* ✅ MOBILE MENU */}
       {isMenuOpen && (
         <div className="md:hidden bg-gray-50 border-t border-gray-200">
           <div className="px-4 py-3 space-y-1">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               onClick={() => setIsMenuOpen(false)}
               className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
             >
               Home
             </Link>
-            <Link 
-              to="/Products" 
+
+            <Link
+              to="/Products"
               onClick={() => setIsMenuOpen(false)}
               className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
             >
               Products
             </Link>
-            <Link 
-              to="/About" 
+
+            <Link
+              to="/About"
               onClick={() => setIsMenuOpen(false)}
               className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
             >
               About
             </Link>
-            <Link 
-              to="/Others" 
+
+            <Link
+              to="/contact"
               onClick={() => setIsMenuOpen(false)}
               className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
             >
               Contact
             </Link>
-            
-            <ProtectedButton 
-              to="/wishlist" 
+
+            <ProtectedButton
+              to="/wishlist"
               user={user}
               onClick={() => setIsMenuOpen(false)}
               className="w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
@@ -314,19 +297,31 @@ const handleLogout = () => {
             >
               Wishlist
             </ProtectedButton>
-            
+
+            {isAdmin && (
+              <button
+                onClick={() => {
+                  navigate("/admin");
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-md transition"
+              >
+                Admin Panel
+              </button>
+            )}
+
             {!user && (
-              <Link 
-                to="/account" 
+              <Link
+                to="/Account"
                 onClick={() => setIsMenuOpen(false)}
                 className="block w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
               >
                 Account
               </Link>
             )}
-            
-            <ProtectedButton 
-              to="/orders" 
+
+            <ProtectedButton
+              to="/orders"
               user={user}
               onClick={() => setIsMenuOpen(false)}
               className="w-full text-left px-3 py-2 text-gray-700 hover:bg-orange-500 hover:text-white rounded-md transition duration-300"
@@ -338,7 +333,7 @@ const handleLogout = () => {
             {user ? (
               <>
                 <p className="px-3 text-gray-700 py-2">
-                  Hi, <span className="font-semibold">{user.name}</span> 
+                  Hi, <span className="font-semibold">{user.name}</span>
                 </p>
                 <button
                   onClick={() => {

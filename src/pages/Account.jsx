@@ -57,7 +57,8 @@ const Register = () => {
         name,
         email,
         password,
-        role: "user"          // ✅ <-- adds role to database
+        role: "user",
+        status : "active"
       };
 
       await fetch("http://localhost:3001/users", {
