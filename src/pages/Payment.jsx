@@ -92,7 +92,7 @@ const Payment = () => {
 
     try {
       // ✅ Save order
-      const response = await fetch("http://localhost:3001/orders", {
+      const response = await fetch("https://my-project-db.onrender.com/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newOrder),
@@ -102,12 +102,12 @@ const Payment = () => {
 
       // ✅ STOCK DECREASE HERE
       for (const item of cartItems) {
-        const res = await fetch(`http://localhost:3001/products/${item.id}`);
+        const res = await fetch(`https://my-project-db.onrender.com/products/${item.id}`);
         const product = await res.json();
 
         const newStock = product.stock - (item.qty || 1);
 
-        await fetch(`http://localhost:3001/products/${item.id}`, {
+        await fetch(`https://my-project-db.onrender.com/products/${item.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ stock: newStock }),
