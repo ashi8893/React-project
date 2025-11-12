@@ -6,7 +6,7 @@ const AdminContext = createContext();
 export const useAdmin = () => useContext(AdminContext);
 
 export const AdminProvider = ({ children }) => {
-  const apiURL = "http://localhost:3001";
+  const apiURL = "https://my-project-db.onrender.com";
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
