@@ -128,7 +128,6 @@ const Navbar = () => {
 
   const activeMenu = location.pathname;
 
-  const isAdmin = user?.role === "admin"; // ✅ Admin Check
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
@@ -148,7 +147,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-300 sticky top-0 z-50 font-sans ">
+    <nav className="bg-white sticky top-0 z-50 font-sans ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18">
           <Link to="/" className="text-2xl font-extrabold text-orange-700 hover:text-orange-900 transition duration-300">
@@ -204,21 +203,11 @@ const Navbar = () => {
               <TruckIcon />
             </ProtectedLink>
 
-            {/* ✅ ✅ UPDATED SECTION — ADMIN PANEL BUTTON BESIDE LOGOUT ✅ ✅ */}
             {user ? (
               <div className="flex items-center space-x-8">
                 <span className="text-gray-700 text-sm">
                   Hi, <span className="font-semibold">{user.name}</span>
                 </span>
-
-                {isAdmin && (
-                  <button
-                    onClick={() => navigate("/admin")}
-                    className="mr-3 px-3 py-1 bg-purple-600 text-white text-sm rounded hover:bg-purple-700 transition"
-                  >
-                    Admin Panel
-                  </button>
-                )}
 
                 <button
                   onClick={handleLogout}
@@ -298,18 +287,7 @@ const Navbar = () => {
               Wishlist
             </ProtectedButton>
 
-            {isAdmin && (
-              <button
-                onClick={() => {
-                  navigate("/admin");
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left px-3 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-md transition"
-              >
-                Admin Panel
-              </button>
-            )}
-
+        
             {!user && (
               <Link
                 to="/Account"
