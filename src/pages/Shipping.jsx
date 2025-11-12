@@ -40,7 +40,7 @@ const Shipping = () => {
       try {
         // Fetch latest product
         const productRes = await fetch(
-          `http://localhost:3001/products/${item.id}`
+          `https://my-project-db.onrender.com/products/${item.id}`
         );
         const product = await productRes.json();
 
@@ -48,7 +48,7 @@ const Shipping = () => {
           Number(product.stock || 0) + Number(item.qty || 1);
 
         // Update backend stock
-        await fetch(`http://localhost:3001/products/${item.id}`, {
+        await fetch(`https://my-project-db.onrender.com/products/${item.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ stock: updatedStock }),
@@ -65,14 +65,14 @@ const Shipping = () => {
 
     try {
       // ✅ Get order details
-      const orderRes = await fetch(`http://localhost:3001/orders/${orderId}`);
+      const orderRes = await fetch(`https://my-project-db.onrender.com/orders/${orderId}`);
       const orderData = await orderRes.json();
 
       // ✅ Restore stock for all items in that order
       await restoreStock(orderData.items);
 
       // ✅ Update order status to Cancelled
-      await fetch(`http://localhost:3001/orders/${orderId}`, {
+      await fetch(`https://my-project-db.onrender.com/orders/${orderId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: "Cancelled" }),
