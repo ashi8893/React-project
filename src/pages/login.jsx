@@ -19,7 +19,7 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3001/users");
+      const res = await fetch("https://my-project-db.onrender.com/users");
       const users = await res.json();
 
       const user = users.find(
