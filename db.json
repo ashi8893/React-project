@@ -18,17 +18,17 @@
     },
     {
       "id": "4",
-      "name": "Nissan Patrol Custom Diecast Car",
+      "name": " Premium  Sedan Toy Car ",
       "price": 399,
       "category": "car",
-      "stock": 0,
+      "stock": "6",
       "image": "https://www.funcorp.in/cdn/shop/files/61QkH3jYqpL._SL1000_940x.jpg?v=1748434865"
     },
     {
       "id": "5",
       "name": "Nissan Patrol Custom Diecast Car",
       "price": 399,
-      "stock": 14,
+      "stock": 16,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM28_533x.jpg?v=1748434707"
     },
@@ -44,7 +44,7 @@
       "id": "7",
       "name": "Mazda RX 7 Die-Cast Vehicles For Ages 3+",
       "price": 199,
-      "stock": 45,
+      "stock": 44,
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JDM27_1920x.jpg?v=1748434701"
     },
@@ -91,7 +91,7 @@
     {
       "id": "13",
       "name": "Diecast Truck with Crushable Car for Ages 3+ (JCD91)",
-      "price": 499,
+      "price": "849",
       "stock": 12,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61FRoKzySDL_670x.jpg?v=1757507066"
@@ -100,14 +100,14 @@
       "id": "14",
       "name": "Demolition Doubles 2 Pack Collection, DC Batman Vs Batman Classic TV Series",
       "price": 1199,
-      "stock": 19,
+      "stock": 18,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61ONc6mQZQL._SL1000.jpg?v=1757071557"
     },
     {
       "id": "15",
       "name": "Hot Wheels Monster Trucks 1:64 Scale Demolition Doubles 2 Pack Collection, Tiger Shark Vs 5 Alarm",
-      "price": 349,
+      "price": "999",
       "stock": 3,
       "category": "truck",
       "image": "https://www.funcorp.in/cdn/shop/files/61iUtxMTOJL._SL1000.jpg?v=1757071569"
@@ -116,17 +116,9 @@
       "id": "17",
       "name": " Honda Prelude Die-Cast Vehicles For Ages 3",
       "price": "699",
-      "stock": "20",
+      "stock": "202",
       "category": "car",
       "image": "https://www.funcorp.in/cdn/shop/files/JCB00-500x500_470x.jpg?v=1748434730"
-    },
-    {
-      "id": "e24f",
-      "name": "car",
-      "price": "1000",
-      "stock": "4",
-      "category": "truck",
-      "image": "wuyiguh"
     }
   ],
   "users": [
@@ -135,21 +127,14 @@
       "name": "Ashfak",
       "role": "admin",
       "email": "a@gmail.com",
-      "password": "a"
+      "password": "a",
+      "status": "active"
     },
     {
       "id": "3cb0",
       "name": "faheem",
       "email": "faheem@gmail.com",
       "password": "Faheem@123",
-      "role": "user",
-      "status": "active"
-    },
-    {
-      "id": "e7aa",
-      "name": "aathika",
-      "email": "aathika@gmail.com",
-      "password": "Aathika@123",
       "role": "user",
       "status": "active"
     },
@@ -162,248 +147,15 @@
       "status": "active"
     },
     {
-      "id": "4f95",
-      "name": "ansaf ansari",
-      "email": "ansu@gmail.com",
-      "password": "Ansaf@123",
+      "id": "f28e",
+      "name": "Aathika",
+      "email": "aathikaa@gmail.com",
+      "password": "Aathika@123",
       "role": "user",
       "status": "active"
     }
   ],
   "orders": [
-    {
-      "id": "1762247765475",
-      "email": "nabeel@gmail.com",
-      "orderId": "ORD69099",
-      "address": "qnkwm",
-      "phone": "hudwjn",
-      "paymentMethod": "cod",
-      "totalAmount": 799,
-      "status": "Cancelled",
-      "createdAt": "2025-11-04T09:16:05.475Z",
-      "trackingId": "TRK513908",
-      "items": [
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799
-        }
-      ]
-    },
-    {
-      "id": "1762248252952",
-      "email": "nabeel@gmail.com",
-      "orderId": "ORD10653",
-      "address": "tyrsdf",
-      "phone": "oiuytr",
-      "paymentMethod": "cod",
-      "totalAmount": 3196,
-      "status": "Delivered",
-      "createdAt": "2025-11-04T09:24:12.952Z",
-      "trackingId": "TRK519799",
-      "items": [
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 4
-        }
-      ]
-    },
-    {
-      "id": "1762248617709",
-      "email": "nabeel@gmail.com",
-      "orderId": "ORD30424",
-      "address": "ddwqa",
-      "phone": "swawqsad",
-      "paymentMethod": "card",
-      "totalAmount": 3794,
-      "status": "Delivered",
-      "createdAt": "2025-11-04T09:30:17.709Z",
-      "trackingId": "TRK516884",
-      "items": [
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 2
-        },
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 699,
-          "qty": 2
-        },
-        {
-          "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
-          "price": 399,
-          "qty": 2
-        }
-      ]
-    },
-    {
-      "id": "1762251636643",
-      "email": "salman@gmail.com",
-      "orderId": "ORD37005",
-      "address": "uh978ftrdgsd",
-      "phone": "jghf",
-      "paymentMethod": "cod",
-      "totalAmount": 1198,
-      "status": "Cancelled",
-      "createdAt": "2025-11-04T10:20:36.643Z",
-      "trackingId": "TRK428893",
-      "items": [
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 1
-        },
-        {
-          "name": "Chrome 2025 Nissan Patrol Custom Diecast Car",
-          "price": 399,
-          "qty": 1
-        }
-      ]
-    },
-    {
-      "id": "1762321407359",
-      "email": "ansil@gmail.com",
-      "orderId": "ORD74640",
-      "address": "wkqhasij",
-      "phone": "fghjkl",
-      "paymentMethod": "cod",
-      "totalAmount": 2397,
-      "status": "Delivered",
-      "createdAt": "2025-11-05T05:43:27.359Z",
-      "trackingId": "TRK197632",
-      "items": [
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 3
-        }
-      ]
-    },
-    {
-      "id": "1762321453796",
-      "email": "ansil@gmail.com",
-      "orderId": "ORD86423",
-      "address": "fghjkl",
-      "phone": "sdfgh",
-      "paymentMethod": "cod",
-      "totalAmount": 799,
-      "status": "Delivered",
-      "createdAt": "2025-11-05T05:44:13.796Z",
-      "trackingId": "TRK834408",
-      "items": [
-        {
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 1
-        }
-      ]
-    },
-    {
-      "id": "1762754438303",
-      "email": "n@gmail.com",
-      "orderId": "ORD75993",
-      "address": "gbhjdsn",
-      "phone": "1234567890",
-      "paymentMethod": "cod",
-      "totalAmount": 799,
-      "status": "Delivered",
-      "createdAt": "2025-11-10T06:00:38.303Z",
-      "trackingId": "TRK995585",
-      "items": [
-        {
-          "id": "2",
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 1,
-          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
-        }
-      ]
-    },
-    {
-      "id": "1762754485123",
-      "email": "n@gmail.com",
-      "orderId": "ORD81667",
-      "address": "cbhjnkml,;",
-      "phone": "123456789",
-      "paymentMethod": "cod",
-      "totalAmount": 799,
-      "status": "Shipped",
-      "createdAt": "2025-11-10T06:01:25.123Z",
-      "trackingId": "TRK789440",
-      "items": [
-        {
-          "id": "2",
-          "name": "Sports Car with Full Metal Body Construction",
-          "price": 799,
-          "qty": 1,
-          "image": "https://www.funcorp.in/cdn/shop/files/61D0BrXd3_L._SL1000_940x.jpg?v=1756469433"
-        }
-      ]
-    },
-    {
-      "id": "1762835666020",
-      "email": "ansu@gmail.com",
-      "orderId": "ORD86419",
-      "address": "feroke",
-      "phone": "1234567890",
-      "paymentMethod": "cod",
-      "totalAmount": 399,
-      "status": "Processing",
-      "createdAt": "2025-11-11T04:34:26.020Z",
-      "trackingId": "TRK421393",
-      "items": [
-        {
-          "id": "4",
-          "name": "Nissan Patrol Custom Diecast Car",
-          "price": 399,
-          "qty": 1,
-          "image": "https://www.funcorp.in/cdn/shop/files/61QkH3jYqpL._SL1000_940x.jpg?v=1748434865"
-        }
-      ]
-    },
-    {
-      "id": "1762835706766",
-      "email": "ansu@gmail.com",
-      "orderId": "ORD89824",
-      "address": "feroke",
-      "phone": "1234567890",
-      "paymentMethod": "cod",
-      "totalAmount": 399,
-      "status": "Processing",
-      "createdAt": "2025-11-11T04:35:06.766Z",
-      "trackingId": "TRK932502",
-      "items": [
-        {
-          "id": "4",
-          "name": "Nissan Patrol Custom Diecast Car",
-          "price": 399,
-          "qty": 1,
-          "image": "https://www.funcorp.in/cdn/shop/files/61QkH3jYqpL._SL1000_940x.jpg?v=1748434865"
-        }
-      ]
-    },
-    {
-      "id": "1762835739314",
-      "email": "ansu@gmail.com",
-      "orderId": "ORD35242",
-      "address": "a123456789",
-      "phone": "1234567890",
-      "paymentMethod": "cod",
-      "totalAmount": 1596,
-      "status": "Processing",
-      "createdAt": "2025-11-11T04:35:39.314Z",
-      "trackingId": "TRK291748",
-      "items": [
-        {
-          "id": "4",
-          "name": "Nissan Patrol Custom Diecast Car",
-          "price": 399,
-          "qty": 4,
-          "image": "https://www.funcorp.in/cdn/shop/files/61QkH3jYqpL._SL1000_940x.jpg?v=1748434865"
-        }
-      ]
-    },
     {
       "id": "1762838240824",
       "email": "m@gmail.com",
@@ -412,7 +164,7 @@
       "phone": "1234567890",
       "paymentMethod": "cod",
       "totalAmount": 1647,
-      "status": "Cancelled",
+      "status": "Shipped",
       "createdAt": "2025-11-11T05:17:20.824Z",
       "trackingId": "TRK614603",
       "items": [
@@ -436,6 +188,69 @@
           "price": 399,
           "qty": 1,
           "image": "https://www.funcorp.in/cdn/shop/files/JDM28_533x.jpg?v=1748434707"
+        }
+      ]
+    },
+    {
+      "id": "1762868033698",
+      "email": "m@gmail.com",
+      "orderId": "ORD61948",
+      "address": "cfgvhbjnm",
+      "phone": "345",
+      "paymentMethod": "cod",
+      "totalAmount": 449,
+      "status": "Shipped",
+      "createdAt": "2025-11-11T13:33:53.699Z",
+      "trackingId": "TRK270038",
+      "items": [
+        {
+          "id": "3",
+          "name": "Shelby Cobra 427 S/C Diecast Car",
+          "price": 449,
+          "qty": 1,
+          "image": "https://www.funcorp.in/cdn/shop/files/JDM29_533x.jpg?v=1748434712"
+        }
+      ]
+    },
+    {
+      "id": "1762920449466",
+      "email": "aathikaa@gmail.com",
+      "orderId": "ORD58099",
+      "address": "kinfra",
+      "phone": "1234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 1199,
+      "status": "Processing",
+      "createdAt": "2025-11-12T04:07:29.466Z",
+      "trackingId": "TRK770510",
+      "items": [
+        {
+          "id": "14",
+          "name": "Demolition Doubles 2 Pack Collection, DC Batman Vs Batman Classic TV Series",
+          "price": 1199,
+          "qty": 1,
+          "image": "https://www.funcorp.in/cdn/shop/files/61ONc6mQZQL._SL1000.jpg?v=1757071557"
+        }
+      ]
+    },
+    {
+      "id": "1762921387857",
+      "email": "aathikaa@gmail.com",
+      "orderId": "ORD42851",
+      "address": "kinfra",
+      "phone": "1234567890",
+      "paymentMethod": "cod",
+      "totalAmount": 199,
+      "status": "Delivered",
+      "createdAt": "2025-11-12T04:23:07.857Z",
+      "trackingId": "TRK136812",
+      "items": [
+        {
+          "id": "7",
+          "name": "Mazda RX 7 Die-Cast Vehicles For Ages 3+",
+          "price": 199,
+          "qty": 1,
+          "image": "https://www.funcorp.in/cdn/shop/files/JDM27_1920x.jpg?v=1748434701"
         }
       ]
     }

@@ -24,7 +24,7 @@ export default function AdminProducts() {
 
  
 return (
-  <div className="min-h-screen bg-gray-950 px-4 py-10 ml-14">
+  <div className="min-h-screen bg-gray-950 px-4 py-10 ml-40">
   <div className="max-w-6xl mx-auto">
     
     <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">

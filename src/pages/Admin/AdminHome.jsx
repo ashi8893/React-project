@@ -65,7 +65,7 @@ export default function AdminHome() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-10 flex flex-col items-center space-y-10">
+    <div className="min-h-screen bg-gray-950 px-4 py-10 flex flex-col items-center space-y-10 ml-40">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -129,7 +129,7 @@ export default function AdminHome() {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1F2937",
+                      backgroundColor: "#168cafff",
                       border: "1px solid #374151",
                       borderRadius: "8px",
                       color: "#E5E7EB",

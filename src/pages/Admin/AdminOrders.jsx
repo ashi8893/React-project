@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function AdminOrders() {
-  const { orders, deleteOrder, updateOrderStatus } = useAdmin();
+  const { orders, deleteOrder, updateOrderStatus, users } = useAdmin();
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const getTotalPrice = (items) => {
@@ -25,8 +25,14 @@ export default function AdminOrders() {
     await updateOrderStatus(id, newStatus);
   };
 
+  // ✅ Function to get username from email
+  const getUsernameFromEmail = (email) => {
+    const user = users.find(user => user.email === email);
+    return user?.username || user?.name || email;
+  };
+
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-10 flex justify-center ml-13">
+    <div className="min-h-screen bg-gray-950 px-4 py-10 flex justify-center ml-40">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -62,9 +68,12 @@ export default function AdminOrders() {
                     className="border-b border-gray-800 hover:bg-gray-800/40 transition-all duration-200"
                   >
                     <td className="p-4 text-slate-100">{order.orderId}</td>
-                    <td className="p-4 text-slate-200">{order.email}</td>
+                    <td className="p-4 text-slate-200">
+                      {/* ✅ Changed from order.email to getUsernameFromEmail */}
+                      {getUsernameFromEmail(order.email)}
+                    </td>
                     <td className="p-4 text-slate-100">
-                      ${getTotalPrice(order.items)}
+                      ₹ {getTotalPrice(order.items)}
                     </td>
                     <td className="p-4 text-slate-100 text-center">
                       {getTotalQty(order.items)}
@@ -119,6 +128,16 @@ export default function AdminOrders() {
             <h2 className="text-2xl text-slate-100 mb-4">
               Order Details – {selectedOrder.orderId}
             </h2>
+
+            {/* ✅ Added user info in modal */}
+            <div className="mb-4 p-3 bg-gray-800 rounded-lg">
+              <p className="text-slate-100 font-semibold">
+                User: {getUsernameFromEmail(selectedOrder.email)}
+              </p>
+              <p className="text-slate-300 text-sm">
+                Email: {selectedOrder.email}
+              </p>
+            </div>
 
             {selectedOrder.items.map((item) => (
               <div

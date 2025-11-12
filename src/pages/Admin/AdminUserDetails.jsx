@@ -1,22 +1,49 @@
 import { motion } from "framer-motion";
 import { useAdmin } from "./context/AdminContext";
 import { Shield, UserCog, UserX } from "lucide-react";
+import { useState } from "react";
 
 export default function AdminUsers() {
-  const { users, updateUser, deleteUser} = useAdmin();
+  const { users, updateUser, deleteUser } = useAdmin();
+  const [updatingUserId, setUpdatingUserId] = useState(null);
 
   // ✅ Update Role (Saves to DB)
-  const handleRoleChange = (id, newRole) => {
-    updateUser(id, { role: newRole });
+  const handleRoleChange = async (id, newRole) => {
+    setUpdatingUserId(id);
+    try {
+      await updateUser(id, { role: newRole });
+    } catch (error) {
+      console.error('Failed to update user role:', error);
+    } finally {
+      setUpdatingUserId(null);
+    }
   };
 
   // ✅ Update Status (Active / Blocked)
-  const handleStatusChange = (id, newStatus) => {
-    updateUser(id, { status: newStatus });
+  const handleStatusChange = async (id, newStatus) => {
+    setUpdatingUserId(id);
+    try {
+      await updateUser(id, { status: newStatus });
+    } catch (error) {
+      console.error('Failed to update user status:', error);
+    } finally {
+      setUpdatingUserId(null);
+    }
+  };
+
+  // ✅ Delete User
+  const handleDeleteUser = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await deleteUser(id);
+      } catch (error) {
+        console.error('Failed to delete user:', error);
+      }
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 px-4 py-10 flex justify-center ml-14">
+    <div className="min-h-screen bg-gray-950 px-4 py-10 flex justify-center ml-40">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -65,7 +92,10 @@ export default function AdminUsers() {
                         onChange={(e) =>
                           handleStatusChange(u.id, e.target.value)
                         }
-                        className="bg-gray-800 text-slate-200 px-2 sm:px-3 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-slate-400"
+                        disabled={updatingUserId === u.id}
+                        className={`bg-gray-800 text-slate-200 px-2 sm:px-3 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-slate-400 ${
+                          updatingUserId === u.id ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                       >
                         <option value="active">Active</option>
                         <option value="blocked">Blocked</option>
@@ -75,11 +105,14 @@ export default function AdminUsers() {
                     {/* ✅ ROLE DROPDOWN (saves to DB) */}
                     <td className="p-3 sm:p-4 text-center">
                       <select
-                        value={u.role}
+                        value={u.role || "user"}
                         onChange={(e) =>
                           handleRoleChange(u.id, e.target.value)
                         }
-                        className="bg-gray-800 text-slate-200 px-2 sm:px-3 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-slate-400"
+                        disabled={updatingUserId === u.id}
+                        className={`bg-gray-800 text-slate-200 px-2 sm:px-3 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring-1 focus:ring-slate-400 ${
+                          updatingUserId === u.id ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
                       >
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
@@ -87,15 +120,11 @@ export default function AdminUsers() {
                     </td>
 
                     <td className="p-3 sm:p-4 flex items-center justify-center gap-3 sm:gap-4">
-                      <button className="text-blue-400 hover:text-blue-300 transition">
-                        <UserCog size={18} />
-                      </button>
-
-                      <button className="text-yellow-400 hover:text-yellow-300 transition">
-                        <Shield size={18} />
-                      </button>
-
-                      <button className="text-red-500 hover:text-red-400 transition" onClick={()=> deleteUser(u.id)}>
+                      <button 
+                        className="text-red-500 hover:text-red-400 transition" 
+                        onClick={() => handleDeleteUser(u.id)}
+                        disabled={updatingUserId === u.id}
+                      >
                         <UserX size={18} />
                       </button>
                     </td>

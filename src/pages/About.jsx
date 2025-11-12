@@ -9,7 +9,7 @@ const About = () => {
 
      
       <div className="text-center max-w-3xl mx-auto px-4">
-        <h1 className="text-4xl font-extrabold text-orange-700 mb-4">
+        <h1 className="text-4xl font-extrabold text-fuchsia-700 mb-4">
           About Hot Wheels Store
         </h1>
         <p className="text-gray-700 text-lg">
@@ -21,7 +21,7 @@ const About = () => {
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-12 px-6">
         
         <div className="bg-white shadow-lg p-6 rounded-2xl hover:shadow-xl transition">
-          <FaCarSide className="text-orange-700 w-10 h-10 mb-4" />
+          <FaCarSide className="text-fuchsia-700 w-10 h-10 mb-4" />
           <h3 className="font-bold text-xl text-gray-800 mb-2">
             Wide Collection
           </h3>
@@ -32,7 +32,7 @@ const About = () => {
         </div>
 
         <div className="bg-white shadow-lg p-6 rounded-2xl hover:shadow-xl transition">
-          <FaShippingFast className="text-orange-700 w-10 h-10 mb-4" />
+          <FaShippingFast className="text-fuchsia-700 w-10 h-10 mb-4" />
           <h3 className="font-bold text-xl text-gray-800 mb-2">
             Fast Delivery
           </h3>
@@ -43,7 +43,7 @@ const About = () => {
         </div>
 
         <div className="bg-white shadow-lg p-6 rounded-2xl hover:shadow-xl transition">
-          <FaTools className="text-orange-700 w-10 h-10 mb-4" />
+          <FaTools className="text-fuchsia-700 w-10 h-10 mb-4" />
           <h3 className="font-bold text-xl text-gray-800 mb-2">
             Premium Quality
           </h3>
@@ -54,16 +54,16 @@ const About = () => {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto mt-16 px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div className="max-w-3xl mx-auto mt-16 px-6 grid md:grid-cols-2 gap-10 items-center">
 
         <img
-          src="https://i.ibb.co/7Q3yb0n/hotwheels.jpg"
+          src="https://imgs.search.brave.com/th50mBsxciFuA-gjMQgkiL1-l_5qRW7slsjIttZbQ2o/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFEOHR6LUUxTUwu/anBn"
           alt="Hot Wheels"
           className="rounded-2xl shadow-lg hover:scale-105 transition duration-300"
         />
 
         <div>
-          <h2 className="text-3xl font-bold text-orange-700 mb-4">
+          <h2 className="text-3xl font-bold text-fuchsia-700 mb-4">
             Our Mission
           </h2>
           <p className="text-gray-700 leading-relaxed text-lg">
@@ -75,7 +75,7 @@ const About = () => {
       </div>
 
       <div className="max-w-3xl mx-auto mt-20 text-center px-4">
-        <FaSmile className="w-12 h-12 text-orange-700 mx-auto mb-4" />
+        <FaSmile className="w-12 h-12 text-fuchsia-700 mx-auto mb-4" />
         <h3 className="text-3xl font-bold text-gray-800 mb-3">
           Customers Love Us!
         </h3>
