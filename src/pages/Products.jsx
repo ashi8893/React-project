@@ -26,7 +26,7 @@ const Products = () => {
   const isInWishlist = (id) => wishlist.some((item) => item.id === id);
 
   useEffect(() => {
-    fetch("http://localhost:3001/products")
+    fetch("https://my-project-db.onrender.com/products")
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
