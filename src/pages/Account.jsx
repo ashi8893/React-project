@@ -61,7 +61,7 @@ const Register = () => {
         status : "active"
       };
 
-      await fetch("http://localhost:3001/users", {
+      await fetch("https://my-project-db.onrender.com/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
