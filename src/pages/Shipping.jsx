@@ -18,7 +18,7 @@ const Shipping = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3001/orders?email=${user.email}`
+          `https://my-project-db.onrender.com/orders?email=${user.email}`
         );
         if (!res.ok) throw new Error("Failed to load orders");
 
