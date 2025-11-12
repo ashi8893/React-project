@@ -76,7 +76,58 @@ export const AdminProvider = ({ children }) => {
     }
   };
 
-  // ✅ ✅ ✅ FIXED DELETE ORDER WITH CORRECT STOCK RESTORE ✅ ✅ ✅
+  // ✅ UPDATE USER (Role/Status)
+  const updateUser = async (id, updatedData) => {
+    try {
+      const res = await axios.patch(`${apiURL}/users/${id}`, updatedData);
+      setUsers(prev => 
+        prev.map(user => 
+          user.id === id ? { ...user, ...res.data } : user
+        )
+      );
+      toast.success("User updated successfully!");
+      return res.data;
+    } catch (error) {
+      toast.error("Failed to update user");
+      throw error;
+    }
+  };
+
+  // ✅ DELETE USER
+  const deleteUser = async (id) => {
+    try {
+      await axios.delete(`${apiURL}/users/${id}`);
+      setUsers(prev => prev.filter(user => user.id !== id));
+      toast.success("User deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete user");
+      throw error;
+    }
+  };
+
+  // ✅ UPDATE ORDER STATUS
+  const updateOrderStatus = async (id, newStatus) => {
+    try {
+      const res = await axios.patch(`${apiURL}/orders/${id}`, {
+        status: newStatus
+      });
+      
+      // Update local state
+      setOrders(prev => 
+        prev.map(order => 
+          order.id === id ? { ...order, status: newStatus } : order
+        )
+      );
+      
+      toast.success(`Order status updated to ${newStatus}!`);
+      return res.data;
+    } catch (error) {
+      toast.error("Failed to update order status");
+      throw error;
+    }
+  };
+
+  // ✅ DELETE ORDER WITH CORRECT STOCK RESTORE
   const deleteOrder = async (id) => {
     try {
       // Get the full order
@@ -124,6 +175,9 @@ export const AdminProvider = ({ children }) => {
         deleteProduct,
         editProduct,
         deleteOrder,
+        updateOrderStatus,
+        updateUser, // ✅ ADDED
+        deleteUser, // ✅ ADDED
       }}
     >
       {children}
