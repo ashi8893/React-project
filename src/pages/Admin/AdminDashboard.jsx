@@ -26,7 +26,7 @@ export default function AdminDashboard() {
         </button>
       </header>
 
-      {/* ✅ Sidebar */}
+
       <aside
         className={`
           fixed md:fixed top-0 left-0 h-[100vh] w-50 md:flex-shrink-0 
