@@ -13,7 +13,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");        // ✅ NEW
+  const [searchTerm, setSearchTerm] = useState("");      
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -55,7 +55,6 @@ const Products = () => {
     });
   };
 
-  // ✅ FILTERING LOGIC UPDATED (Search + Category + Price)
   useEffect(() => {
     let filtered = [...products];
 
@@ -74,7 +73,6 @@ const Products = () => {
       });
     }
 
-    // ✅ NEW SEARCH FILTER
     if (searchTerm.trim() !== "") {
       filtered = filtered.filter((p) =>
         p.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -124,7 +122,6 @@ const Products = () => {
           <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl">
 
-              {/* ✅ CATEGORY FILTER */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Category
@@ -142,7 +139,6 @@ const Products = () => {
                 </select>
               </div>
 
-              {/* ✅ PRICE FILTER */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Price Range
@@ -159,7 +155,6 @@ const Products = () => {
                 </select>
               </div>
 
-              {/* ✅ NEW SEARCH BAR */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Search Products
@@ -180,7 +175,7 @@ const Products = () => {
               onClick={() => {
                 setSelectedCategory("all");
                 setPriceRange("all");
-                setSearchTerm("");   // ✅ CLEAR SEARCH
+                setSearchTerm("");   
               }}
               className="px-4 py-2 bg-orange-700 text-white rounded-md hover:bg-orange-600 transition"
             >
@@ -189,7 +184,6 @@ const Products = () => {
           </div>
         </div>
 
-        {/* ✅ PRODUCT GRID */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mb-12">
           {currentProducts.length > 0 ? (
             currentProducts.map((p) => {
@@ -277,7 +271,6 @@ const Products = () => {
           )}
         </div>
 
-        {/* PAGINATION */}
         {filteredProducts.length > productsPerPage && (
           <div className="flex justify-center items-center space-x-2 mb-8">
             <button
