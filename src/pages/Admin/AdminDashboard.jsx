@@ -10,8 +10,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-gray-950">
-      
-      {/* ✅ Mobile Header */}
+ 
       <header className="md:hidden flex justify-between items-center bg-fuchsia-900/80 backdrop-blur-md text-white px-4 py-3 shadow-md">
         <h2 className="text-xl font-[Cinzel] tracking-wide">Admin Panel</h2>
 
