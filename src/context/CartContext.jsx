@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-
+// car section
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
