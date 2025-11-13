@@ -52,7 +52,7 @@ const Register = () => {
         return;
       }
 
-      // ✅ Add ROLE here
+      
       const newUser = {
         name,
         email,
