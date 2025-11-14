@@ -11,7 +11,7 @@ export const AdminProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
 
-  // ✅ Fetch Products
+  
   const fetchProducts = async () => {
     try {
       const res = await axios.get(`${apiURL}/products`);
