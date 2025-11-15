@@ -42,7 +42,7 @@ export default function AdminDashboard() {
             Admin Panel
           </h2>
 
-          {/* ✅ Navigation Including Dashboard at top */}
+          
           <nav className="flex flex-col gap-3 text-lg">
             <NavLink
               to="/admin"
