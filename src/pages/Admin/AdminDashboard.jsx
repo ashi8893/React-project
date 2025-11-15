@@ -103,7 +103,7 @@ export default function AdminDashboard() {
           </nav>
         </div>
 
-        {/* ✅ Bottom Section - Go to User Page Button */}
+        
         <div className="mt-10 border-t border-fuchsia-700/40 pt-4">
           <button
             onClick={() => navigate("/login")}
